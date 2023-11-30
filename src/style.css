@@ -1,0 +1,30 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+} 
+
+html {
+    font-size: 24px;
+}
+
+mainContainerDiv /* contains header, sidebar and content*/{
+    display: grid;
+    grid-template-rows: 150px 1fr;
+    grid-template-columns: 300px 1fr;
+    grid-auto-flow: column;
+}
+
+
+header /*a grid member of mainContainerDiv*/{
+    grid-area: 1 / 1 / 2 / -1;
+    margin: 0.6rem;
+}
+
+sidebar /* a grid member of mainContainerDiv*/{
+    grid-area: 2 / 1 / -1 / 2;
+}
+
+content /* a grid member of mainContainerDiv*/ {
+    grid-area: 2 / 2 / -1 / -1;
+}
