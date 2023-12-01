@@ -1,10 +1,7 @@
 import './style.css';
 
 import createEle from './createEle.js';
-
-import logo from './img/logo/png/logo-no-background.png';
-import addProjIcon from './img/add-task-icon.png'; 
-// add task icon by icons8
+import {loadHome, loadTask} from './loadhome.js';
 
 import Project from './projects.js';
 
@@ -31,85 +28,28 @@ export const projectArray = (function () {
     return { projects, add, remove }
    })();
 
-
-// create main container div
-const mainContainerDiv = createEle('div', 'id', 'mainContainerDiv');
-
-// create header
-const header = createEle('div', 'id', 'header');
-
-// create logo
-const logoElement = createEle('img', 'id', 'headerLogo');
-logoElement.src = logo;
-logoElement.style.height = '4rem';
-logoElement.style.width = '12rem';
-header.appendChild(logoElement);
-mainContainerDiv.appendChild(header)
-
-//create sidebar
-const sidebar = createEle('div', 'id', 'sidebar');
-
-// add project in sidebar
-const addProjIconElement = createEle('img', 'id', 'addProjIcon');
-addProjIconElement.src = addProjIcon;
-sidebar.appendChild(addProjIconElement);
-
-// add project text
-const addProjText = createEle('span', 'id', 'addProjText');
-addProjText.innerText = 'Add Project'
-sidebar.appendChild(addProjText);
-
-// add list of projects
-const projListDiv = createEle('div', 'id', 'projListDiv');
-refreshSidebarProjList();
-sidebar.appendChild(projListDiv);
-
-mainContainerDiv.appendChild(sidebar);
-
-
-// create main Content Div, where to do lists will be shows (categorized by projects)
-const content = createEle('div', 'id', 'content');
-
-mainContainerDiv.appendChild(content);
-
-document.body.appendChild(mainContainerDiv);
-
-// event listener for add project
-[addProjIconElement, addProjText].forEach(htmlElement => htmlElement.addEventListener('click', () => {
-    const title = prompt('Please enter title of Project');
-    const description = prompt('Please enter a short description of this project');
-    projectArray.add(new Project(title, description));
-    refreshSidebarProjList();
-}))
+document.body.appendChild(loadHome());
 
 // helper function to refresh list of projects in sidebar
-function refreshSidebarProjList() {
-    let projListString = '';
-    projectArray.projects.forEach(Proj => {
-        // check if this is last project in the array, if it is don't add a new line
-        if (projectArray.projects.indexOf(Proj) === projectArray.projects.length - 1){
-
-            // also check if the project title is too long 
-            if (Proj.title.length < 18) {
-            projListString += Proj.title;
-            } else {
-            const shortenedProjTitle = Proj.title.slice(0,18);
-            projListString += shortenedProjTitle;
-            }
+export function loadSidebarProj() {
+    const projListContainer = createEle('div');
+    projectArray.projects.forEach((Proj) => {
+        const projDiv = createEle('div', 'class', 'projDiv');
+        if (Proj.title.length < 18) {
+            projDiv.innerText = Proj.title;
         } else {
-            if (Proj.title.length < 18) {
-            projListString += Proj.title;
-            projListString += '\n'
-            } else {
             const shortenedProjTitle = Proj.title.slice(0,18);
-            projListString += shortenedProjTitle;
-            projListString += '\n';
-            }
+            projDiv.innerText = shortenedProjTitle;
         }
-    })
-
-    // finally we update the innerText of div that contains project list in the sidebar
-    projListDiv.innerText = projListString;
+        projDiv.addEventListener('click', loadTask)
+        projListContainer.appendChild(projDiv);
+    });
+    return projListContainer
 }
 
-
+// helper function to remove child nodes
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
