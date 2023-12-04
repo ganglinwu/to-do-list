@@ -1,11 +1,22 @@
 import './style.css';
 
 import createEle from './createEle.js';
-import {loadHome, loadTask} from './loadhome.js';
+import {loadHome, loadTodo} from './loadhome.js';
 
 import Project from './projects.js';
 
-// IIFE to instantiate a project array "class"
+// gyh object
+// gyh stands for guenyang hae, kinda means "just do it"
+//
+//
+// reflections: I could have called this object todo
+// then accessing the methods or projects would look nice like this
+// e.g. todo.projectName.push(new Project)
+// however if we access deeper it could lead to name clash confusion
+// e.g. todo.projectName.todoArray['to do name'].toggleTodoComplete()
+// below the gyh object we have the Project class and below that we have the Todo class
+// i.e. gyh >> Project >> ToDo
+// personally i think a different name would be less confusing thus gyh
 
 export const projectArray = (function () {
     const projects = [];
