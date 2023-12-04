@@ -54,14 +54,16 @@ export function loadSidebarProj() {
             const shortenedProjTitle = gyh.projects[key].title.slice(0,18);
             projDiv.innerText = shortenedProjTitle;
         }
-        projDiv.addEventListener('click', loadTask)
+        projDiv.addEventListener('click', (e) => {
+            content.appendChild(loadTodo(e))
+        });
         projListContainer.appendChild(projDiv);
     });
     return projListContainer
 }
 
 // helper function to remove child nodes
-function removeAllChildNodes(parent) {
+export function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
