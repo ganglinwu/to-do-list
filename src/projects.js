@@ -2,16 +2,16 @@ export default class Project {
     constructor(title, description) {
         this.title = title;
         this.description = description;
-        this.tasks = [];
+        this.todoArray = [];
     }
 
-    addTask(taskObj) {
-        this.tasks.push(taskObj);
+    addTask(todoObj) {
+        this.todoArray.push(todoObj);
     }
 
-    removeTask(taskObj) {
-        if (this.tasks.some(taskObj)) {
-            const index = this.tasks.indexOf(taskObj);
+    removeTask(todoObj) {
+        if (this.tasks.some(todoObj)) {
+            const index = this.tasks.indexOf(todoObj);
             this.tasks.splice(index, 1);
         }
     }
