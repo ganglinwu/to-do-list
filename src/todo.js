@@ -1,13 +1,13 @@
-export default class Task  {
-    constructor(name, description, dueDate, taskDuration, completed) {
+export default class Todo  {
+    constructor(name, description, dueDate, todoDuration, completed) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
-        this.taskDuration = taskDuration;
+        this.todoDuration = todoDuration;
         this.completed = completed;
     }
 
-    toggleTaskComplete() {
+    toggleTodoComplete() {
         if (this.completed) {
             this.completed = false;
         } else {
