@@ -54,11 +54,24 @@ html {
     grid-auto-columns: minmax(300px, 1fr);
 }
 
-.todoList {
+.todoList /* container for proj and todos under it */{
     border: 1px solid black;
     border-radius: 15px;
 
     box-shadow: 2px 2px grey; 
 
     padding: 0.3rem 0.6rem;
+}
+
+.projTitleDiv /* contains project title */{
+    font-weight: 900;
+    color: #4891f1;
+}
+
+.todoContainer /* container for all the todo*/ {
+    margin-left: 0.1rem;
+}
+
+.todoDiv /* div that contains todo name */ {
+    
 }
