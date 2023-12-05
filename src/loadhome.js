@@ -59,11 +59,19 @@ export function loadHome() {
 }
 
 export function loadTodo(clickEvent) {
-    const todoList = createEle('div', 'class', 'todoList');
-    const todoDiv = createEle('div', 'class', 'todoDiv');
+    const todoList = createEle('div', 'class', 'todoList'); // this is the overall div that we will return at end of function
+    const projTitleDiv = createEle('div', 'class', 'projTitleDiv'); // div to contain title of Project
+    const todoContainer = createEle('div', 'class', 'todoContainer'); // div to containerize all the todo items under Project
+
     const projTitle = clickEvent.target.innerText;
+    projTitleDiv.innerText = projTitle;
+    todoList.appendChild(projTitleDiv);
+
+    // loop through each todo under project and place todo name into a div
+    // but first check if todo array is empty
     if (gyh.projects[projTitle].length>0) {
         gyh.projects[projTitle].forEach(todo => {
+            const todoDiv = createEle('div', 'class', 'todoDiv');
             if (todo.names.length < 18) {
                 todoDiv.innerText = todo.name;
             } else {
@@ -71,9 +79,13 @@ export function loadTodo(clickEvent) {
                 todoDiv.innerText = shortenedtodoName;
             }
             todoDiv.addEventListener('click', doSomething); //TODO: doSomething
-    })} else {
+            todoContainer.appendChild(todoDiv);
+        })
+    } else {
+        const todoDiv = createEle('div', 'class', 'todoDiv');
         todoDiv.innerText = 'todolist is empty, would you like to add todo?'; 
+        todoContainer.appendChild(todoDiv); // TODO: check if project of same name already rendered, if yes don't render a duplicate
     }
-    todoList.appendChild(todoDiv);
+    todoList.appendChild(todoContainer);
     return todoList;
 };
