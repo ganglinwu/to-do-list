@@ -1,10 +1,13 @@
 export default class Todo  {
-    constructor(name, description, dueDate, todoDuration, completed) {
+    constructor(name, description, dueDate, todoDuration, completed, priority, checklistRequired, checklist) {
         this.name = name;
         this.description = description;
         this.dueDate = dueDate;
         this.todoDuration = todoDuration;
         this.completed = completed;
+        this.priority = priority;
+        this.checklistRequired = checklistRequired;
+        this.checklist = [];
     }
 
     toggleTodoComplete() {
