@@ -48,7 +48,7 @@ export function loadHome() {
     mainContainerDiv.appendChild(content);
 
     // event listener for add project
-    [addProjIconElement, addProjText].forEach(htmlElement => htmlElement.addEventListener('click', (e) => {
+    [addProjIconElement, addProjText].forEach(htmlElement => htmlElement.addEventListener('click', () => {
         const title = prompt('Please enter title of Project');
         const description = prompt('Please enter a short description of this project');
         gyh.projects[title] = new Project(title, description);
@@ -69,22 +69,22 @@ export function loadTodo(clickEvent) {
 
     // loop through each todo under project and place todo name into a div
     // but first check if todo array is empty
-    if (gyh.projects[projTitle].length>0) {
-        gyh.projects[projTitle].forEach(todo => {
+    if (gyh.projects[projTitle].todoArray.length>0) {
+        gyh.projects[projTitle].todoArray.forEach(todo => {
             const todoDiv = createEle('div', 'class', 'todoDiv');
-            if (todo.names.length < 18) {
+            if (todo.name.length < 18) {
                 todoDiv.innerText = todo.name;
             } else {
                 const shortenedtodoName = todo.name.slice(0,18);
                 todoDiv.innerText = shortenedtodoName;
             }
-            todoDiv.addEventListener('click', doSomething); //TODO: doSomething
+            todoDiv.addEventListener('click', console.log('TODO: show details of todo item')); //TODO: show details of todo
             todoContainer.appendChild(todoDiv);
         })
     } else {
         const todoDiv = createEle('div', 'class', 'todoDiv');
         todoDiv.innerText = 'todolist is empty, would you like to add todo?'; 
-        todoContainer.appendChild(todoDiv); // TODO: check if project of same name already rendered, if yes don't render a duplicate
+        todoContainer.appendChild(todoDiv); 
     }
     todoList.appendChild(todoContainer);
     return todoList;
