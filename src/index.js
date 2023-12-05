@@ -54,9 +54,16 @@ export function loadSidebarProj() {
             const shortenedProjTitle = gyh.projects[key].title.slice(0,18);
             projDiv.innerText = shortenedProjTitle;
         }
+
+        // add event listener for each Proj in the sidebar
         projDiv.addEventListener('click', (e) => {
-            content.appendChild(loadTodo(e))
+            const projTitle = e.target.innerText;
+            // first check if project of same name alredy rendered in content area
+            isProjRendered(projTitle) ? e.preventDefault() : content.appendChild(loadTodo(e));
+           
         });
+        
+        // add to container, end of loop
         projListContainer.appendChild(projDiv);
     });
     return projListContainer
@@ -67,4 +74,14 @@ export function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
+}
+
+// helper function to check if project has already been rendered in content area
+function isProjRendered(projTitle) {
+    const renderedProjTitleDivNodeList = document.querySelectorAll('.projTitleDiv');
+    const renderedProjTitles = [];
+    Array.from(renderedProjTitleDivNodeList).forEach((div)=> renderedProjTitles.push(div.innerText))
+    if (renderedProjTitles.includes(projTitle)) {
+       return true; 
+    } else return false; 
 }
