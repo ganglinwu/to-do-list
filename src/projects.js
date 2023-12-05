@@ -5,14 +5,23 @@ export default class Project {
         this.todoArray = [];
     }
 
-    addTask(todoObj) {
-        this.todoArray.push(todoObj);
+    addTodo(todoObj) {
+        // first check if duplicate todo already exist
+        // we check two things, the todo name and dueDate 
+        _isTodoDuplicate(todoObj) ? alert('A todo with the same name and due date is already in this Project. Please check again.') : this.todoArray.push(todoObj);
     }
 
-    removeTask(todoObj) {
-        if (this.tasks.some(todoObj)) {
-            const index = this.tasks.indexOf(todoObj);
-            this.tasks.splice(index, 1);
+    removeTodo(todoObj) {
+        if (this.todoArray.some(todoObj)) {
+            const index = this.todoArray.indexOf(todoObj);
+            this.todoArray.splice(index, 1);
         }
+    }
+
+    // helper function to check if todo alrady exist in todoArray
+    _isTodoDuplicate(todoObj) {
+        if (this.todoArray.some(todoObj)) {
+            return true;
+        } else return false;
     }
 }
