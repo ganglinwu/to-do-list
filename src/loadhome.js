@@ -87,5 +87,12 @@ export function loadTodo(clickEvent) {
         todoContainer.appendChild(todoDiv); 
     }
     todoList.appendChild(todoContainer);
+
+    // add input to add todo
+    const addTodoInput = createEle('input', 'class', 'addTodoInput');
+    addTodoInput.setAttribute('placeholder', '+  Add todo');
+
+    todoList.appendChild(addTodoInput);
+
     return todoList;
 };
