@@ -90,9 +90,170 @@ export function loadTodo(clickEvent) {
 
     // add input to add todo
     const addTodoInput = createEle('input', 'class', 'addTodoInput');
-    addTodoInput.setAttribute('placeholder', '+  Add todo');
+    addTodoInput.setAttribute('placeholder', '+  Add todo e.g. Water plants');
+
+    // instead of a button to "submit" we listen for enter keyup
+    addTodoInput.addEventListener('keyup', (e)=> {
+        if (e.key === 'Enter') {
+            const todoName = addTodoInput.value;
+            if (!todoName) {
+                e.preventDefault();
+            } else {
+                loadTodoForm(todoName);
+
+                // clear input field to prevent recursive error
+                addTodoInput.value = '';
+            }
+        }
+    })
 
     todoList.appendChild(addTodoInput);
 
     return todoList;
 };
+
+// helper function to load form to ask user about details of todo
+// since the form is created and should be GC once it is done
+// IIFE is perfect for this use case
+const loadTodoForm = (function (todoName) {
+    // pop up form will take up the whole screen
+    // so we will append to mainContainerDiv
+    const mainContainerDiv = document.getElementById('mainContainerDiv');
+
+    // this will be the container for the add todo form
+    // we will apply backdrop-filter blur to blur the entire page 
+    const todoFormContainer = createEle('div', 'class', 'todoFormContainer');
+
+    // to do form
+    const todoForm = createEle('form', 'class', 'todoForm');
+    todoForm.setAttribute('action', './');
+    todoForm.setAttribute('method', 'post');
+
+    // title of to do form
+    const title = createEle('div', 'class', 'todoFormTitle');
+    title.innerText = 'Add todo';
+    todoForm.appendChild(title);
+
+    // use unordered list to neatly add label and input fields
+    const todoFormUl = createEle('ul', 'class', 'todoFormUl');
+
+    // name label and input
+    const nameLi = createEle('li', 'class', 'nameLi');
+    const nameLabel = createEle('label', 'for', 'name');
+    const nameInput = createEle('input', 'name', 'name');
+    nameLabel.innerText = 'Name';
+    nameInput.setAttribute('type', 'text');
+    nameInput.setAttribute('required', '');
+    nameInput.setAttribute('placeholder', 'e.g. Water plants, Print report etc');
+    nameInput.value = todoName;
+    nameLi.appendChild(nameLabel);
+    nameLi.appendChild(nameInput);
+    todoFormUl.appendChild(nameLi);
+
+    // description label and input
+    const descriptionLi = createEle('li', 'class', 'descriptionLi');
+    const descriptionLabel = createEle('label', 'for', 'description');
+    const descriptionInput = createEle('input', 'name', 'description');
+    descriptionLabel.innerText = 'Description';
+    descriptionInput.setAttribute('type', 'text');
+    descriptionInput.setAttribute('placeholder', 'Enter a short description');
+    descriptionLi.appendChild(descriptionLabel);
+    descriptionLi.appendChild(descriptionInput);
+    todoFormUl.appendChild(descriptionLi);
+
+    // dueDate label and input
+    const dueDateLi = createEle('li', 'class', 'dueDateLi');
+    const dueDateLabel = createEle('label', 'for', 'dueDate');
+    const dueDateInput = createEle('input', 'name', 'dueDate');
+    dueDateLabel.innerText = 'Due Date';
+    dueDateInput.setAttribute('type', 'date'); 
+    const today = new Date();
+    dueDateInput.setAttribute('min', today.toJSON().slice(0,10)); //use date string to set min date value
+    dueDateInput.setAttribute('min', today.toJSON().slice(0,10)); //use date string to set default date value
+    dueDateLi.appendChild(dueDateLabel);
+    dueDateLi.appendChild(dueDateInput);
+    todoFormUl.appendChild(dueDateLi);
+    
+    // duration label and input
+    const durationLi = createEle('li', 'class', 'durationLi');
+    const durationLabel = createEle('label', 'for', 'duration');
+    const durationInput = createEle('input', 'name', 'duration');
+    durationLabel.innerText = 'How long does this task take (in minutes)?';
+    durationInput.setAttribute('type', 'number');
+    durationInput.setAttribute('placeholder', 'e.g. 1 hour = 60 (mins)');
+    durationLi.appendChild(durationLabel);
+    durationLi.appendChild(durationInput);
+    todoFormUl.appendChild(durationLi);
+
+    // completed label and input
+    const completedLi = createEle('li', 'class', 'completedLi');
+    const completedLabel = createEle('label', 'for', 'completed');
+    const completedInput = createEle('input', 'name', 'completed');
+    completedLabel.innerText = 'Has this task been completed?';
+    completedInput.setAttribute('type', 'checkbox');
+    completedInput.setAttribute('placeholder', 'completed in minutes.');
+    completedInput.setAttribute('value', 'true');
+    completedLi.appendChild(completedLabel);
+    completedLi.appendChild(completedInput);
+    todoFormUl.appendChild(completedLi);
+
+    // priority label and input
+    const priorityLi = createEle('li', 'class', 'priorityLi');
+    const priorityLabel = createEle('label', 'for', 'priority');
+    const priorityInput = createEle('input', 'name', 'priority');
+    priorityLabel.innerText = 'How urgent is this task?';
+    priorityInput.setAttribute('type', 'select');
+    priorityLi.appendChild(priorityLabel);
+    ['Please choose', 'High', 'Medium', 'Low'].forEach(option => {
+        const optHTML = createEle('option', 'class', 'priorityOptions');
+        if (option !== 'Please choose'){
+            optHTML.setAttribute('value', option);
+        } else {
+            optHTML.setAttribute('value', '');
+        }
+        optHTML.innerText = option;
+        priorityInput.appendChild(optHTML);
+    })
+    priorityLi.appendChild(priorityInput);
+    todoFormUl.appendChild(priorityLi);
+
+    // checklist label and input
+    const checklistLi = createEle('li', 'class', 'checklistLi');
+    const checklistLabel = createEle('label', 'for', 'checklist');
+    const checklistInput = createEle('input', 'name', 'checklist');
+    checklistLabel.innerText = 'Do you need a checklist?';
+    checklistInput.setAttribute('type', 'checkbox');
+    checklistInput.setAttribute('placeholder', 'checklist in minutes.');
+    checklistInput.setAttribute('value', 'true');
+    checklistLi.appendChild(checklistLabel);
+    checklistLi.appendChild(checklistInput);
+    todoFormUl.appendChild(checklistLi);
+
+    // add todo button
+    const buttonLi = createEle('li', 'class', 'buttonLi');
+    const addTodoBtn = createEle('button', 'class', 'addTodoBtn');
+    addTodoBtn.innerText = 'Add Todo'
+    buttonLi.appendChild(addTodoBtn);
+    todoFormUl.appendChild(buttonLi);
+
+    todoForm.appendChild(todoFormUl);
+
+    todoFormContainer.appendChild(todoForm);
+    mainContainerDiv.appendChild(todoFormContainer);
+
+    todoFormContainer.addEventListener('click', (e)=> {
+        console.log(e);
+        if (e.target.className === 'todoFormContainer') {
+            removeAllChildNodes(todoFormContainer);
+            mainContainerDiv.removeChild(todoFormContainer);
+        } 
+    });
+    
+    // TODO: add todo to project
+    /*
+    addTodoBtn.addEventListener('click', ()=> {
+        const name = nameInput.value;
+
+    })
+    */
+})

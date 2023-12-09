@@ -2,6 +2,8 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+
+    --main-blue: #4891f1;
 } 
 
 html {
@@ -68,7 +70,7 @@ html {
 
 .projTitleDiv /* contains project title */{
     font-weight: 900;
-    color: #4891f1;
+    color: var(--main-blue);
 }
 
 .todoContainer /* container for all the todo*/ {
@@ -86,7 +88,7 @@ html {
 }
 
 .addTodoInput{
-    color: lightgrey;
+    color: black;
 
     margin-left: 0.2rem;
 
@@ -102,4 +104,65 @@ html {
     color: lightgrey;
     font-size: 0.8rem;
     padding: 0.1rem 0;
+}
+
+/* ----------------------------------------------------*/
+/* ----------------- CSS for todoForm -----------------*/
+/* ----------------------------------------------------*/
+
+.todoFormContainer {
+    z-index: 2;    
+    backdrop-filter: blur(2px);
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+
+    transition: all 0.8s ease-in-out;
+}
+
+.todoForm {
+    z-index: 3;
+
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 1px 4px lightgrey;
+
+    width: 50vw;
+    height: 40vh;
+
+    padding: 1rem 1.5rem;
+
+    transition: all 0.8s ease-in-out;
+}
+
+.todoFormTitle {
+    font-size: 1.2rem;
+    color: var(--main-blue);
+
+    margin-left: -0.5rem;
+}
+
+.todoFormUl {
+    list-style-type: none;
+}
+
+.addTodoBtn {
+    background-color: var(--main-blue);
+    color: white;
+
+    width: 5rem;
+    padding: 0.3rem 1rem;
+    
+    border: none;
+
+    border-radius: 5px;
+
+    cursor: pointer;
 }
