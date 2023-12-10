@@ -99,7 +99,7 @@ export function loadTodo(clickEvent) {
             if (!todoName) {
                 e.preventDefault();
             } else {
-                loadTodoForm(todoName);
+                addNewTodoForm(todoName, gyh.projects[projTitle]);
 
                 // clear input field to prevent recursive error
                 addTodoInput.value = '';
@@ -112,10 +112,10 @@ export function loadTodo(clickEvent) {
     return todoList;
 };
 
-// helper function to load form to ask user about details of todo
+// helper function to load form to ask user about details of new todo
 // since the form is created and should be GC once it is done
 // IIFE is perfect for this use case
-const loadTodoForm = (function (todoName) {
+const addNewTodoForm = (function (todoName, ProjectObject) {
     // pop up form will take up the whole screen
     // so we will append to mainContainerDiv
     const mainContainerDiv = document.getElementById('mainContainerDiv');
