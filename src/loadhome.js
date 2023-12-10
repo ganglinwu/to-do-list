@@ -5,6 +5,7 @@ import addProjIcon from './img/add-task-icon.png';
 import createEle from './createEle.js';
 import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
 import Project from './projects.js';
+import Todo from './todo.js';
 
 export function loadHome() {
     // create main container div
@@ -127,7 +128,7 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     // to do form
     const todoForm = createEle('form', 'class', 'todoForm');
     todoForm.setAttribute('action', './');
-    todoForm.setAttribute('method', 'post');
+    //todoForm.setAttribute('method', 'post');
 
     // title of to do form
     const title = createEle('div', 'class', 'todoFormTitle');
@@ -242,18 +243,32 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     mainContainerDiv.appendChild(todoFormContainer);
 
     todoFormContainer.addEventListener('click', (e)=> {
-        console.log(e);
         if (e.target.className === 'todoFormContainer') {
             removeAllChildNodes(todoFormContainer);
             mainContainerDiv.removeChild(todoFormContainer);
         } 
     });
-    
-    // TODO: add todo to project
-    /*
-    addTodoBtn.addEventListener('click', ()=> {
-        const name = nameInput.value;
-
+    // add event listener to button    
+    addTodoBtn.addEventListener('click', (e) => {
+        if (e.target.form.checkValidity()) {
+            const newTodo = new Todo(
+                nameInput.value, 
+                descriptionInput.value, 
+                new Date(dueDateInput.value), 
+                durationInput.value, 
+                completedLabel.value, 
+                priorityInput.value, 
+                checklistInput.value
+                )
+            if (ProjectObject.isTodoDuplicate(newTodo)) {
+                alert('A todo with the same name and due date already exists in this project. Please try again.')
+            } else {
+                ProjectObject.todoArray.push(newTodo);
+                alert(`Todo: ${nameInput.value} has been added to project: ${ProjectObject.title}`)
+                removeAllChildNodes(todoFormContainer);
+                mainContainerDiv.removeChild(todoFormContainer);
+            }
+            console.log(e) //TODO: remove after test
+        } else e.preventDefault();
     })
-    */
 })
