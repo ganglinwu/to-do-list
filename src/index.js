@@ -44,7 +44,7 @@ export const gyh = {
 
 // TEST code to manually add todos
 //                                      constructor(name, description, dueDate, todoDuration, completed, priority, checklistRequired)
-gyh.projects['< 2 mins'].addTodo(new Todo('print pdf', 'for mum\'s visa application', new Date(2023, 12, 30), 5, false, 'high', false))
+gyh.projects['< 2 mins'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(2023, 12, 30), 5, false, 'high', false))
 
 
 document.body.appendChild(loadHome());
