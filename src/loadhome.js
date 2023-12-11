@@ -61,10 +61,12 @@ export function loadHome() {
 
 export function loadTodo(clickEvent) {
     const todoList = createEle('div', 'class', 'todoList'); // this is the overall div that we will return at end of function
+    const projTitle = clickEvent.target.innerText;
+    const projTitleNoWhiteSpace = projTitle.replace(/\s/g, ""); // we need to give this todoList div a specific id
+    todoList.setAttribute('id', projTitleNoWhiteSpace);  // this will allow us to refresh the todolist after adding todo items
     const projTitleDiv = createEle('div', 'class', 'projTitleDiv'); // div to contain title of Project
     const todoContainer = createEle('div', 'class', 'todoContainer'); // div to containerize all the todo items under Project
 
-    const projTitle = clickEvent.target.innerText;
     projTitleDiv.innerText = projTitle;
     todoList.appendChild(projTitleDiv);
 
@@ -269,6 +271,23 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
                 mainContainerDiv.removeChild(todoFormContainer);
             }
             console.log(e) //TODO: remove after test
+
+            // TODO: refresh the todoList
+            //  in order to do this we need the todolist to have a specific css selector id
+            //  this would involve changing parameters of loadTodo function
+            const todoDiv = createEle('div', 'class', 'todoDiv');
+            if (newTodo.name.length < 18) {
+                todoDiv.innerText = newTodo.name;
+            } else {
+                const shortenedtodoName = newTodo.name.slice(0,18);
+                todoDiv.innerText = shortenedtodoName;
+            }
+            todoDiv.addEventListener('click', console.log('TODO: show details of todo item')); //TODO: show details of todo
+            
+            const projTitle = ProjectObject.title
+            const projTitleNoWhiteSpace = projTitle.replace(/\s/g, '');
+            const todoList = document.getElementById(projTitleNoWhiteSpace)
+            todoList.children[1].appendChild(todoDiv);
         } else e.preventDefault();
     })
 })

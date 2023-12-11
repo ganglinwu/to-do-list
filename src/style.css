@@ -79,12 +79,13 @@ html {
 }
 
 .todoDiv /* div that contains todo name */ {
-   border: 1px solid grey; 
-   border-radius: 5px;
+    margin-bottom: 0.3rem;
+    border: 1px solid grey; 
+    border-radius: 5px;
 
-   padding: 0.1rem 0.6rem;
+    padding: 0.1rem 0.6rem;
 
-   font-size: 0.8rem;
+    font-size: 0.8rem;
 }
 
 .addTodoInput{
