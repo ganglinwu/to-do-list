@@ -13,7 +13,7 @@ html {
 #mainContainerDiv /* contains header, sidebar and content*/{
     display: grid;
 
-    margin: 1rem;
+    margin-left: 0.5rem;
 
     grid-template-rows: 150px 1fr;
     grid-template-columns: 300px 1fr;
@@ -28,6 +28,103 @@ html {
 #header /*a grid member of mainContainerDiv*/{
     grid-area: 1 / 1 / 2 / -1;
     margin: 0.6rem;
+
+    display: grid;
+    grid-template-columns: 300px 1fr;
+}
+
+#headerLeft {
+    grid-area: 1 / 1 / 2 / 2;
+
+    display:grid;
+    align-items: center;
+}
+
+#quickViewContainer {
+    width: 700px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#thisWeekQuickViewBtn,
+#highPriorityQuickViewBtn,
+#expiredQuickViewBtn {
+    cursor: pointer;
+
+    border-radius: 25px;
+    
+    background-color: white;
+
+    font-size: 1rem;
+
+    padding: 0.2rem 0.5rem;
+}
+
+#thisWeekQuickViewBtn {
+    border: 1px solid var(--main-blue);
+    color: var(--main-blue);
+}
+
+#highPriorityQuickViewBtn {
+    border: 1px solid red;
+    color: red;
+}
+
+#expiredQuickViewBtn {
+    border: 1px solid darkgrey;
+    color: darkgrey;
+}
+
+#thisWeekQuickViewBtn:hover {
+    border: 1px solid white;
+    color: white;
+    background-color: var(--main-blue);
+}
+
+#highPriorityQuickViewBtn:hover {
+    border: 1px solid white;
+    color: white;
+    background-color: red;
+}
+
+#expiredQuickViewBtn:hover {
+    border: 1px solid white;
+    color: white;
+    background-color: darkgrey;
+}
+
+#headerRight {
+    grid-area: 1 / 2 / -1 / -1;
+
+    display: grid;
+    grid-auto-rows: 1fr 1fr;
+}
+
+#legendContainer {
+    width: 700px;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+}
+
+#highPriorityLegend,
+#mediumPriorityLegend, 
+#lowPriorityLegend {
+    border: 1px solid black;
+    border-radius: 5px;
+
+    font-size: 0.8rem;
+
+    height: 1rem;
+
+    padding: 0rem 0.8rem;
+
+    display: grid;
+    align-items: center;
 }
 
 /* ---------------------------------------------------*/
@@ -36,10 +133,42 @@ html {
 
 #sidebar /* a grid member of mainContainerDiv*/{
     grid-area: 2 / 1 / -1 / 2;
+
+    margin: 0 0.5rem;
+}
+
+#addProjContainer {
+    display: flex;
+    align-items: center;
+
+    transition: all 0.2s ease-in-out;
+}
+
+#addProjContainer:hover {
+    background-color: var(--main-blue);
+    color: white;
+}
+
+#addProjText {
+    margin-left: 0.2rem;
 }
 
 .projDiv {
     margin-top: 0.3rem;
+
+    transition: all 0.3s ease-in-out;
+}
+
+.projDiv:hover {
+    background-color: var(--main-blue);
+    color: white;
+}
+
+#addProjIcon,
+#addProjText,
+.projDiv
+{
+    cursor: pointer;
 }
 
 /* ---------------------------------------------------*/

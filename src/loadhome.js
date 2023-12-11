@@ -13,27 +13,66 @@ export function loadHome() {
 
     // create header
     const header = createEle('div', 'id', 'header');
+    const headerLeft = createEle('div', 'id', 'headerLeft');
+    const headerRight = createEle('div', 'id', 'headerRight');
+    header.appendChild(headerLeft);
+    header.appendChild(headerRight);
 
     // create logo
     const logoElement = createEle('img', 'id', 'headerLogo');
     logoElement.src = logo;
-    logoElement.style.height = '4rem';
-    logoElement.style.width = '12rem';
-    header.appendChild(logoElement);
+    logoElement.style.height = '3rem';
+    logoElement.style.width = '9rem';
+    headerLeft.appendChild(logoElement);
     mainContainerDiv.appendChild(header)
+
+    // legend
+    const legendContainer = createEle('div', 'id', 'legendContainer');
+    const legendText = createEle('div', 'id', 'legendText');
+    legendText.innerText = 'Legend: '
+    const highPriorityLegend = createEle('div', 'id', 'highPriorityLegend');
+    highPriorityLegend.innerText = 'High Priority'
+    const mediumPriorityLegend = createEle('div', 'id', 'mediumPriorityLegend');
+    mediumPriorityLegend.innerText = 'Medium Priority'
+    const lowPriorityLegend = createEle('div', 'id', 'lowPriorityLegend');
+    lowPriorityLegend.innerText = 'Low Priority'
+
+    headerRight.appendChild(legendContainer);
+    [legendText, highPriorityLegend, mediumPriorityLegend, lowPriorityLegend].forEach(div => legendContainer.appendChild(div));
+
+    // Quick View
+    const quickViewContainer = createEle('div', 'id', 'quickViewContainer');
+    const quickViewText = createEle('div', 'id', 'quickViewText');
+    quickViewText.innerText = 'Quick View: '
+    const thisWeekQuickViewBtn = createEle('button', 'id', 'thisWeekQuickViewBtn');
+    thisWeekQuickViewBtn.setAttribute('type', 'button');
+    thisWeekQuickViewBtn.innerText = 'This week'
+    const highPriorityQuickViewBtn = createEle('button', 'id', 'highPriorityQuickViewBtn');
+    highPriorityQuickViewBtn.setAttribute('type', 'button');
+    highPriorityQuickViewBtn.innerText = 'High Priority'
+    const expiredQuickViewBtn = createEle('button', 'id', 'expiredQuickViewBtn');
+    expiredQuickViewBtn.setAttribute('type', 'button');
+    expiredQuickViewBtn.innerText = 'Expired'
+    
+    headerRight.appendChild(quickViewContainer);
+    [quickViewText, thisWeekQuickViewBtn, highPriorityQuickViewBtn, expiredQuickViewBtn].forEach(div => quickViewContainer.appendChild(div));
 
     //create sidebar
     const sidebar = createEle('div', 'id', 'sidebar');
 
+    // add project container
+    const addProjContainer = createEle('div', 'id', 'addProjContainer');
+    sidebar.appendChild(addProjContainer);
+
     // add project in sidebar
     const addProjIconElement = createEle('img', 'id', 'addProjIcon');
     addProjIconElement.src = addProjIcon;
-    sidebar.appendChild(addProjIconElement);
+    addProjContainer.appendChild(addProjIconElement);
 
     // add project text
     const addProjText = createEle('span', 'id', 'addProjText');
     addProjText.innerText = 'Add Project'
-    sidebar.appendChild(addProjText);
+    addProjContainer.appendChild(addProjText);
 
     // add list of projects
     const projListDiv = createEle('div', 'id', 'projListDiv');
