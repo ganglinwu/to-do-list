@@ -165,11 +165,13 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     todoFormUl.appendChild(descriptionLi);
 
     // dueDate label and input
+    // date is required
     const dueDateLi = createEle('li', 'class', 'dueDateLi');
     const dueDateLabel = createEle('label', 'for', 'dueDate');
     const dueDateInput = createEle('input', 'name', 'dueDate');
     dueDateLabel.innerText = 'Due Date';
     dueDateInput.setAttribute('type', 'date'); 
+    dueDateInput.setAttribute('required', '');
     const today = new Date();
     dueDateInput.setAttribute('min', today.toJSON().slice(0,10)); //use date string to set min date value
     dueDateInput.setAttribute('min', today.toJSON().slice(0,10)); //use date string to set default date value
@@ -178,12 +180,19 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     todoFormUl.appendChild(dueDateLi);
     
     // duration label and input
+    // required input
+    // prevent negative numbers
     const durationLi = createEle('li', 'class', 'durationLi');
     const durationLabel = createEle('label', 'for', 'duration');
     const durationInput = createEle('input', 'name', 'duration');
     durationLabel.innerText = 'How long does this task take (in minutes)?';
+    durationInput.setAttribute('required', '');
     durationInput.setAttribute('type', 'number');
     durationInput.setAttribute('placeholder', 'e.g. 1 hour = 60 (mins)');
+    durationInput.setAttribute('min', '1');
+    durationInput.setAttribute('type', 'number');
+    durationInput.setAttribute('type', 'number');
+    durationInput.setAttribute('type', 'number');
     durationLi.appendChild(durationLabel);
     durationLi.appendChild(durationInput);
     todoFormUl.appendChild(durationLi);
@@ -201,11 +210,12 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     todoFormUl.appendChild(completedLi);
 
     // priority label and input
+    // priority required
     const priorityLi = createEle('li', 'class', 'priorityLi');
     const priorityLabel = createEle('label', 'for', 'priority');
-    const priorityInput = createEle('input', 'name', 'priority');
+    const priorityInput = createEle('select', 'name', 'priority');
     priorityLabel.innerText = 'How urgent is this task?';
-    priorityInput.setAttribute('type', 'select');
+    priorityInput.setAttribute('required', '');
     priorityLi.appendChild(priorityLabel);
     ['Please choose', 'High', 'Medium', 'Low'].forEach(option => {
         const optHTML = createEle('option', 'class', 'priorityOptions');
@@ -226,7 +236,6 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     const checklistInput = createEle('input', 'name', 'checklist');
     checklistLabel.innerText = 'Do you need a checklist?';
     checklistInput.setAttribute('type', 'checkbox');
-    checklistInput.setAttribute('placeholder', 'checklist in minutes.');
     checklistInput.setAttribute('value', 'true');
     checklistLi.appendChild(checklistLabel);
     checklistLi.appendChild(checklistInput);
