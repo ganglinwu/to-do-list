@@ -65,7 +65,7 @@ export function loadSidebarProj() {
         projDiv.addEventListener('click', (e) => {
             const projTitle = e.target.innerText;
             // first check if project of same name alredy rendered in content area
-            isProjRendered(projTitle) ? e.preventDefault() : content.appendChild(loadTodo(e));
+            isProjRendered(projTitle) ? e.preventDefault() : loadTodo(e);
            
         });
         

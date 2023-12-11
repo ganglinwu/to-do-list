@@ -62,34 +62,18 @@ export function loadHome() {
 export function loadTodo(clickEvent) {
     const todoList = createEle('div', 'class', 'todoList'); // this is the overall div that we will return at end of function
     const projTitle = clickEvent.target.innerText;
-    const projTitleNoWhiteSpace = projTitle.replace(/\s/g, ""); // we need to give this todoList div a specific id
+    const projTitleNoWhiteSpace = projTitle.replace(/\s/g, "") + 'PROJECT'; // we need to give this todoList div a specific id, to prevent namespace clash, salt with 'PROJECT'
     todoList.setAttribute('id', projTitleNoWhiteSpace);  // this will allow us to refresh the todolist after adding todo items
     const projTitleDiv = createEle('div', 'class', 'projTitleDiv'); // div to contain title of Project
     const todoContainer = createEle('div', 'class', 'todoContainer'); // div to containerize all the todo items under Project
 
     projTitleDiv.innerText = projTitle;
     todoList.appendChild(projTitleDiv);
-
-    // loop through each todo under project and place todo name into a div
-    // but first check if todo array is empty
-    if (gyh.projects[projTitle].todoArray.length>0) {
-        gyh.projects[projTitle].todoArray.forEach(todo => {
-            const todoDiv = createEle('div', 'class', 'todoDiv');
-            if (todo.name.length < 18) {
-                todoDiv.innerText = todo.name;
-            } else {
-                const shortenedtodoName = todo.name.slice(0,18);
-                todoDiv.innerText = shortenedtodoName;
-            }
-            todoDiv.addEventListener('click', console.log('TODO: show details of todo item')); //TODO: show details of todo
-            todoContainer.appendChild(todoDiv);
-        })
-    } else {
-        const todoDiv = createEle('div', 'class', 'todoDiv');
-        todoDiv.innerText = 'todolist is empty, would you like to add todo?'; 
-        todoContainer.appendChild(todoDiv); 
-    }
     todoList.appendChild(todoContainer);
+    content.appendChild(todoList)
+
+    // refresh todolist
+    refreshTodoList(gyh.projects[projTitle]);
 
     // add input to add todo
     const addTodoInput = createEle('input', 'class', 'addTodoInput');
@@ -111,8 +95,6 @@ export function loadTodo(clickEvent) {
     })
 
     todoList.appendChild(addTodoInput);
-
-    return todoList;
 };
 
 // helper function to load form to ask user about details of new todo
@@ -281,22 +263,35 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
             }
             console.log(e) //TODO: remove after test
 
-            // TODO: refresh the todoList
-            //  in order to do this we need the todolist to have a specific css selector id
-            //  this would involve changing parameters of loadTodo function
-            const todoDiv = createEle('div', 'class', 'todoDiv');
-            if (newTodo.name.length < 18) {
-                todoDiv.innerText = newTodo.name;
-            } else {
-                const shortenedtodoName = newTodo.name.slice(0,18);
-                todoDiv.innerText = shortenedtodoName;
-            }
-            todoDiv.addEventListener('click', console.log('TODO: show details of todo item')); //TODO: show details of todo
-            
-            const projTitle = ProjectObject.title
-            const projTitleNoWhiteSpace = projTitle.replace(/\s/g, '');
-            const todoList = document.getElementById(projTitleNoWhiteSpace)
-            todoList.children[1].appendChild(todoDiv);
+            // refresh the todoList
+            refreshTodoList(ProjectObject);
         } else e.preventDefault();
     })
 })
+
+// helper function to refresh todo items in a todolist
+function refreshTodoList(ProjectObj) {
+    const projTitleNoWhiteSpace = ProjectObj.title.replace(/\s/g, "") + 'PROJECT'; // all todolists have id that contains no whitespace, and salted with 'PROJECT' to prevent namespace clash 
+    const todoList = document.getElementById(projTitleNoWhiteSpace);
+    // first remove preveious todos
+    removeAllChildNodes(todoList.children[1]);
+    // loop through each todo under project and place todo name into a div
+    // but first check if todo array is empty
+    if (ProjectObj.todoArray.length>0) {
+        ProjectObj.todoArray.forEach(todo => {
+            const todoDiv = createEle('div', 'class', 'todoDiv');
+            if (todo.name.length < 18) {
+                todoDiv.innerText = todo.name;
+            } else {
+                const shortenedtodoName = todo.name.slice(0,18);
+                todoDiv.innerText = shortenedtodoName;
+            }
+            todoDiv.addEventListener('click', console.log('TODO: show details of todo item')); //TODO: show details of todo
+            todoList.children[1].appendChild(todoDiv); // first child is the title of the todolist, so we append to 2nd child
+        })
+    } else {
+        const todoDiv = createEle('div', 'class', 'emptyTodoListPrompt');
+        todoDiv.innerText = 'todolist is empty, would you like to add todo?'; 
+        todoList.children[1].appendChild(todoDiv); 
+    }
+}
