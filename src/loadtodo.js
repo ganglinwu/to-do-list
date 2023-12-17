@@ -1,8 +1,10 @@
+import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
+
 import createEle from './createEle.js'
 import Project from './projects.js';
 import Todo from './todo.js';
 
-export default function loadTodo(clickEvent) { //TODO: refactor function to a separate JS file
+export default function loadTodo(clickEvent) { 
     const todoList = createEle('div', 'class', 'todoList'); // this is the overall div that we will return at end of function
     const projTitle = clickEvent.target.innerText;
     const projTitleNoWhiteSpace = projTitle.replace(/\s/g, "") + 'PROJECT'; // we need to give this todoList div a specific id, to prevent namespace clash, salt with 'PROJECT'
@@ -204,8 +206,6 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
                 removeAllChildNodes(todoFormContainer);
                 mainContainerDiv.removeChild(todoFormContainer);
             }
-            console.log(e) //TODO: remove after test
-
             // refresh the todoList
             refreshTodoList(ProjectObject);
         } else e.preventDefault();
