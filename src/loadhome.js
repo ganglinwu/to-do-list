@@ -324,6 +324,14 @@ function refreshTodoList(ProjectObj) {
             } else {
                 const shortenedtodoName = todo.name.slice(0,18);
                 todoDiv.innerText = shortenedtodoName;
+            }   
+            // add class according to priority
+            if (todo.priority === 'High') {
+                todoDiv.classList.add('highPriority');
+            } else if (todo.priority === 'Medium') {
+                todoDiv.classList.add('mediumPriority');
+           } else if (todo.priority === 'Low'){
+                todoDiv.classList.add('lowPriority');
             }
             todoDiv.addEventListener('click', console.log('TODO: show details of todo item')); //TODO: show details of todo
             todoList.children[1].appendChild(todoDiv); // first child is the title of the todolist, so we append to 2nd child

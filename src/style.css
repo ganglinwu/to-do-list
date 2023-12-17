@@ -4,9 +4,9 @@
     box-sizing: border-box;
 
     --main-blue: #4891f1;
-    --white-percent: 65%;
-    --color-percent: 35%;
-    --todoDiv-width-percent: 150%;
+    --white-percent: 45%;
+    --color-percent: 55%;
+    --todoDiv-width-percent: 190%;
 } 
 
 html {
@@ -128,6 +128,24 @@ html {
 
     display: grid;
     align-items: center;
+}
+
+#highPriorityLegend {
+    background: linear-gradient(to left, #fff var(--white-percent), red var(--color-percent)) right;
+    background-size: var(--todoDiv-width-percent) 100%;
+    background-color: red;
+}
+
+#mediumPriorityLegend {
+    background: linear-gradient(to left, #fff var(--white-percent), yellow var(--color-percent)) right;
+    background-size: var(--todoDiv-width-percent) 100%;
+    background-color: yellow;
+}
+
+#lowPriorityLegend {
+    background: linear-gradient(to left, #fff var(--white-percent), green var(--color-percent)) right;
+    background-size: var(--todoDiv-width-percent) 100%;
+    background-color: green;
 }
 
 /* ---------------------------------------------------*/
