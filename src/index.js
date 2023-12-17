@@ -1,7 +1,8 @@
 import './style.css';
 
 import createEle from './createEle.js';
-import {loadHome, loadTodo} from './loadhome.js';
+import loadHome from './loadhome.js';
+import loadTodo from './loadtodo.js';
 
 import Project from './projects.js';
 import Todo from './todo.js';
@@ -91,3 +92,11 @@ function isProjRendered(projTitle) {
        return true; 
     } else return false; 
 }
+
+//TODO: collapsible sidebar
+//
+//
+//TODO: no adding of task to projects sorted by duration
+//
+//
+
