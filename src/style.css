@@ -4,6 +4,9 @@
     box-sizing: border-box;
 
     --main-blue: #4891f1;
+    --white-percent: 65%;
+    --color-percent: 35%;
+    --todoDiv-width-percent: 150%;
 } 
 
 html {
@@ -215,6 +218,42 @@ html {
     padding: 0.1rem 0.6rem;
 
     font-size: 0.8rem;
+}
+
+.highPriority {
+    background: linear-gradient(to left, #fff var(--white-percent), red var(--color-percent)) right;
+    background-size: var(--todoDiv-width-percent) 100%;
+    background-color: red;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.highPriority:hover {
+    background-position: left;
+}
+
+.mediumPriority {
+    background: linear-gradient(to left, #fff var(--white-percent), yellow var(--color-percent)) right;
+    background-size: var(--todoDiv-width-percent) 100%;
+    background-color: yellow;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.mediumPriority:hover {
+    background-position: left;
+}
+
+.lowPriority {
+    background: linear-gradient(to left, #fff var(--white-percent), green var(--color-percent)) right;
+    background-size: var(--todoDiv-width-percent) 100%;
+    background-color: green;
+
+    transition: all 0.2s ease-in-out;
+}
+
+.lowPriority:hover {
+    background-position: left;
 }
 
 .addTodoInput{
