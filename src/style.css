@@ -338,6 +338,10 @@ html {
     transition: all 0.8s ease-in-out;
 }
 
+.todoFormContainer input:focus {
+    outline: none;
+}
+
 .todoForm {
     z-index: 3;
 
@@ -345,10 +349,9 @@ html {
     border-radius: 5px;
     box-shadow: 0 1px 4px lightgrey;
 
-    width: 50vw;
-    height: 40vh;
+    width: 40vw;
 
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1.5rem;
 
     transition: all 0.8s ease-in-out;
 }
@@ -358,18 +361,121 @@ html {
     color: var(--main-blue);
 
     margin-left: -0.5rem;
+    margin-bottom: 1.2rem;
 }
 
 .todoFormUl {
     list-style-type: none;
 }
 
+    /* -------------------------------------------------------*/
+    /* ----------------- CSS for form inputs -----------------*/
+    /* -------------------------------------------------------*/
+.todoFormUl li{
+    position: relative;
+
+    margin-bottom: 0.9rem;
+}
+
+.todoFormUl li:not(.completedLi, .checklistLi) input {
+    height: 100%;
+    width: 100%;
+    border: none;
+    border-bottom: 2px solid grey;
+
+    font-size: 0.7rem;
+
+    background-color: rgba(0,0,0,0);
+}
+
+.todoFormUl li:not(.dueDateLi, .completedLi, .priorityLi, .checklistLi) label {
+    position: absolute;
+
+    left: 0;
+    bottom: 0.3rem;
+
+    font-size: 0.7rem;
+
+    color: grey;
+
+    transition: all 0.3s ease;
+
+    z-index: -1;
+}
+
+.todoFormUl li:not(.dueDateLi, .nameLi, .descriptionLi, .durationLi) label {
+    font-size: 0.7rem;
+
+    color: grey;
+}
+
+.nameLi input:focus ~ label,
+.nameLi input:valid ~ label{
+    transform: translateY(-0.6rem);
+    color: var(--main-blue);
+    font-size: 0.5rem;
+}
+
+.descriptionLi input:focus ~ label,
+.descriptionLi input:user-valid ~ label{
+    transform: translateY(-0.6rem);
+    color: var(--main-blue);
+    font-size: 0.5rem;
+}
+
+.dueDateLi label{
+    position: absolute;
+
+    font-size: 0.5rem;
+
+    bottom: 1rem;
+    left:0;
+    color: var(--main-blue);
+}
+
+.durationLi input:focus ~ label,
+.durationLi input:valid ~ label{
+    transform: translateY(-0.6rem);
+    color: var(--main-blue);
+    font-size: 0.5rem;
+}
+
+.completedLi,
+.priorityLi, 
+.checklistLi{
+    position: relative;
+}
+
+.completedLi label {
+    margin-top: 0.5rem;
+}
+
+.completedLi label,
+.priorityLi label, 
+.checklistLi label{
+    margin-bottom: 0.2rem;
+    margin-right: 0.2rem;
+}
+
+.completedLi input,
+.priorityLi select, 
+.checklistLi input{
+    position: absolute;
+    top: 0.35rem;
+}
+
+.todoFormUl li input:focus
+{
+    border-bottom: 2px solid var(--main-blue)
+}
+
+
 .addTodoBtn {
     background-color: var(--main-blue);
     color: white;
 
-    width: 5rem;
-    padding: 0.3rem 1rem;
+    width: 4rem;
+    padding: 0.3rem 0.5rem;
     
     border: none;
 
@@ -377,3 +483,6 @@ html {
 
     cursor: pointer;
 }
+    /* -------------------------------------------------------*/
+    /* --------------END css for form inputs -----------------*/
+    /* -------------------------------------------------------*/

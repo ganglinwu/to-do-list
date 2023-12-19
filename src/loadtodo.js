@@ -95,13 +95,12 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     const nameLi = createEle('li', 'class', 'nameLi');
     const nameLabel = createEle('label', 'for', 'name');
     const nameInput = createEle('input', 'name', 'name');
-    nameLabel.innerText = 'Name';
+    nameLabel.innerText = 'Todo name';
     nameInput.setAttribute('type', 'text');
     nameInput.setAttribute('required', '');
-    nameInput.setAttribute('placeholder', 'e.g. Water plants, Print report etc');
     nameInput.value = todoName;
-    nameLi.appendChild(nameLabel);
     nameLi.appendChild(nameInput);
+    nameLi.appendChild(nameLabel);
     todoFormUl.appendChild(nameLi);
 
     // description label and input
@@ -110,9 +109,8 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     const descriptionInput = createEle('input', 'name', 'description');
     descriptionLabel.innerText = 'Description';
     descriptionInput.setAttribute('type', 'text');
-    descriptionInput.setAttribute('placeholder', 'Enter a short description');
-    descriptionLi.appendChild(descriptionLabel);
     descriptionLi.appendChild(descriptionInput);
+    descriptionLi.appendChild(descriptionLabel);
     todoFormUl.appendChild(descriptionLi);
 
     // dueDate label and input
@@ -126,8 +124,8 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     const today = new Date();
     dueDateInput.setAttribute('min', today.toJSON().slice(0,10)); //use date string to set min date value
     dueDateInput.setAttribute('min', today.toJSON().slice(0,10)); //use date string to set default date value
-    dueDateLi.appendChild(dueDateLabel);
     dueDateLi.appendChild(dueDateInput);
+    dueDateLi.appendChild(dueDateLabel);
     todoFormUl.appendChild(dueDateLi);
     
     // duration label and input
@@ -139,19 +137,18 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     durationLabel.innerText = 'How long does this task take (in minutes)?';
     durationInput.setAttribute('required', '');
     durationInput.setAttribute('type', 'number');
-    durationInput.setAttribute('placeholder', 'e.g. 1 hour = 60 (mins)');
     durationInput.setAttribute('min', '1');
     durationInput.setAttribute('type', 'number');
     durationInput.setAttribute('type', 'number');
     durationInput.setAttribute('type', 'number');
-    durationLi.appendChild(durationLabel);
     durationLi.appendChild(durationInput);
+    durationLi.appendChild(durationLabel);
     todoFormUl.appendChild(durationLi);
 
     // completed label and input
     const completedLi = createEle('li', 'class', 'completedLi');
     const completedLabel = createEle('label', 'for', 'completed');
-    const completedInput = createEle('input', 'name', 'completed');
+    const completedInput = createEle('input', 'id', 'completed');
     completedLabel.innerText = 'Has this task been completed?';
     completedInput.setAttribute('type', 'checkbox');
     completedInput.setAttribute('placeholder', 'completed in minutes.');
@@ -166,7 +163,6 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     const priorityLabel = createEle('label', 'for', 'priority');
     const priorityInput = createEle('select', 'name', 'priority');
     priorityLabel.innerText = 'How urgent is this task?';
-    priorityLi.appendChild(priorityLabel);
     ['Please choose', 'High', 'Medium', 'Low'].forEach(option => {
         const optHTML = createEle('option', 'class', 'priorityOptions');
         if (option !== 'Please choose'){
@@ -177,13 +173,14 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
         optHTML.innerText = option;
         priorityInput.appendChild(optHTML);
     })
+    priorityLi.appendChild(priorityLabel);
     priorityLi.appendChild(priorityInput);
     todoFormUl.appendChild(priorityLi);
 
     // checklist label and input
     const checklistLi = createEle('li', 'class', 'checklistLi');
     const checklistLabel = createEle('label', 'for', 'checklist');
-    const checklistInput = createEle('input', 'name', 'checklist');
+    const checklistInput = createEle('input', 'id', 'checklist');
     checklistLabel.innerText = 'Do you need a checklist?';
     checklistInput.setAttribute('type', 'checkbox');
     checklistInput.setAttribute('value', 'true');
@@ -274,4 +271,6 @@ function refreshTodoList(ProjectObj) {
 //
 //TODO: remove todo list button (probably just a big X)
 //
-//TODO: display duedate
+//TODO: display duedate, checklist(icon)
+//
+//TODO: form validation
