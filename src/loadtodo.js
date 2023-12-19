@@ -230,6 +230,34 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
             refreshTodoList(ProjectObject);
         } else e.preventDefault();
     })
+    // instead of button to "submit" we also listen for enter keyup
+    todoFormContainer.addEventListener('keyup', (e)=> {
+        if (e.key === 'Enter') {
+            const newTodo = new Todo(
+                nameInput.value, 
+                descriptionInput.value, 
+                new Date(dueDateInput.value), 
+                durationInput.value, 
+                completedLabel.value, 
+                priorityInput.value, 
+                checklistInput.value
+            )
+            if (ProjectObject.isTodoDuplicate(newTodo)) {
+                alert('A todo with the same name and due date already exists in this project. Please try again.')
+            } else {
+                ProjectObject.todoArray.push(newTodo);
+                alert(`Todo: ${nameInput.value} has been added to project: ${ProjectObject.title}`)
+                removeAllChildNodes(todoFormContainer);
+                mainContainerDiv.removeChild(todoFormContainer);
+            }
+            // refresh the todoList
+            refreshTodoList(ProjectObject);
+        } else if (e.key === "Escape") { //listen for Escape and quit form
+            removeAllChildNodes(todoFormContainer);
+            mainContainerDiv.removeChild(todoFormContainer);
+        } else e.preventDefault();
+        }
+    )
 })
 
 // helper function to refresh todo items in a todolist
