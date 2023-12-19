@@ -20,11 +20,33 @@ export default function loadTodo(clickEvent) {
     // refresh todolist
     refreshTodoList(gyh.projects[projTitle]);
 
+    // wrapper for input and submit btn
+    const inputWrapper = createEle('div', 'class', 'inputWrapper');
+
+    
     // add input to add todo
     const addTodoInput = createEle('input', 'class', 'addTodoInput');
-    addTodoInput.setAttribute('placeholder', '+  Add todo e.g. Water plants');
+    addTodoInput.setAttribute('placeholder', '+ e.g. Water plants');
 
-    // instead of a button to "submit" we listen for enter keyup
+    // add todo btn
+    const submitTodoBtn = createEle('button', 'class', 'submitTodoBtn');
+    submitTodoBtn.setAttribute('type', 'button');
+    submitTodoBtn.innerText = '+';
+
+    // eventListener for submit button
+    submitTodoBtn.addEventListener('click', (e)=> {
+        const todoName = addTodoInput.value;
+        if (!todoName) {
+            e.preventDefault();
+        } else {
+            addNewTodoForm(todoName, gyh.projects[projTitle]);
+
+            // clear input field to prevent recursive error
+            addTodoInput.value = '';
+        }
+    })
+
+    // instead of button to "submit" we also listen for enter keyup
     addTodoInput.addEventListener('keyup', (e)=> {
         if (e.key === 'Enter') {
             const todoName = addTodoInput.value;
@@ -39,7 +61,9 @@ export default function loadTodo(clickEvent) {
         }
     })
 
-    todoList.appendChild(addTodoInput);
+    inputWrapper.appendChild(addTodoInput);
+    inputWrapper.appendChild(submitTodoBtn);
+    todoList.appendChild(inputWrapper);
 };
 
 // helper function to load form to ask user about details of new todo
@@ -142,7 +166,6 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     const priorityLabel = createEle('label', 'for', 'priority');
     const priorityInput = createEle('select', 'name', 'priority');
     priorityLabel.innerText = 'How urgent is this task?';
-    priorityInput.setAttribute('required', '');
     priorityLi.appendChild(priorityLabel);
     ['Please choose', 'High', 'Medium', 'Low'].forEach(option => {
         const optHTML = createEle('option', 'class', 'priorityOptions');
@@ -246,3 +269,9 @@ function refreshTodoList(ProjectObj) {
         todoList.children[1].appendChild(todoDiv); 
     }
 }
+
+//TODO: sort by button
+//
+//TODO: remove todo list button (probably just a big X)
+//
+//TODO: display duedate

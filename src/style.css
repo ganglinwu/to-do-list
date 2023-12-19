@@ -274,6 +274,10 @@ html {
     background-position: left;
 }
 
+.inputWrapper {
+    display: flex;
+}
+
 .addTodoInput{
     color: black;
 
@@ -291,6 +295,26 @@ html {
     color: lightgrey;
     font-size: 0.8rem;
     padding: 0.1rem 0;
+}
+
+.submitTodoBtn {
+    border: 1px solid var(--main-blue);
+    border-radius: 5px;
+    padding: 5px 5px;
+
+    background-color: var(--main-blue);
+    color: #fff;
+
+    margin-left: 0.2rem;
+
+    flex: 1;
+}
+
+.submitTodoBtn:hover {
+    color: var(--main-blue);
+    background-color: #fff;
+
+    border: 1px solid var(--main-blue);
 }
 
 /* ----------------------------------------------------*/
