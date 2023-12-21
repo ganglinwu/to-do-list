@@ -263,35 +263,20 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
 // helper function to refresh todo items in a todolist
 function refreshTodoList(ProjectObj) {
     const projTitleNoWhiteSpace = ProjectObj.title.replace(/\s/g, "") + 'PROJECT'; // all todolists have id that contains no whitespace, and salted with 'PROJECT' to prevent namespace clash 
-    const todoList = document.getElementById(projTitleNoWhiteSpace);
-    // first remove preveious todos
-    removeAllChildNodes(todoList.children[1]);
-    // loop through each todo under project and place todo name into a div
-    // but first check if todo array is empty
+    const projDiv = document.getElementById(projTitleNoWhiteSpace);
+    // firstly remove preveious todos
+    // first child is the title of the todolist, so we append the second child
+    removeAllChildNodes(projDiv.children[1]);
+    
+    // first check if Project has any todos
     if (ProjectObj.todoArray.length>0) {
-        ProjectObj.todoArray.forEach(todo => {
-            const todoDiv = createEle('div', 'class', 'todoDiv');
-            if (todo.name.length < 18) {
-                todoDiv.innerText = todo.name;
-            } else {
-                const shortenedtodoName = todo.name.slice(0,18);
-                todoDiv.innerText = shortenedtodoName;
-            }   
-            // add class according to priority
-            if (todo.priority === 'High') {
-                todoDiv.classList.add('highPriority');
-            } else if (todo.priority === 'Medium') {
-                todoDiv.classList.add('mediumPriority');
-           } else if (todo.priority === 'Low'){
-                todoDiv.classList.add('lowPriority');
-            }
-            todoDiv.addEventListener('click', console.log('TODO: show details of todo item')); //TODO: show details of todo
-            todoList.children[1].appendChild(todoDiv); // first child is the title of the todolist, so we append to 2nd child
+        ProjectObj.todoArray.forEach(todo => { 
+            projDiv.children[1].appendChild(createTodoDivShort(todo)); // add a short version of the todo
+            projDiv.children[1].appendChild(createTodoDivDetailed(todo)); // add a detailed version which is hidden by default and position absolute
         })
     } else {
-        const todoDiv = createEle('div', 'class', 'emptyTodoListPrompt');
+        const todoDiv = createEle('div', 'class', 'emptyTodoListPrompt'); // TODO: CSS emptyTodoListPrompt and give different styling
         todoDiv.innerText = 'todolist is empty, would you like to add todo?'; 
-        todoList.children[1].appendChild(todoDiv); 
     }
 }
 
