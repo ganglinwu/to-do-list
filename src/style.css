@@ -228,7 +228,11 @@ html {
     flex: 1 1 auto;
 }
 
-.todoDiv /* div that contains todo name */ {
+.todoDiv, /* short verison of todo */ 
+.todoDivDetailed  /* detailed version of todo, hidden by default*/ {
+    display: block;
+    position: relative;
+
     margin-bottom: 0.3rem;
     border: 1px solid grey; 
     border-radius: 5px;
@@ -236,6 +240,13 @@ html {
     padding: 0.1rem 0.6rem;
 
     font-size: 0.8rem;
+
+    transition: all 0.3s ease;
+}
+
+.hidden {
+    display: none;
+    position: absolute;
 }
 
 .highPriority {

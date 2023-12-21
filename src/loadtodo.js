@@ -3,6 +3,7 @@ import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
 import createEle from './createEle.js'
 import Project from './projects.js';
 import Todo from './todo.js';
+import { createTodoDivShort, createTodoDivDetailed } from './createTodoDiv.js';
 
 export default function loadTodo(clickEvent) { 
     const todoList = createEle('div', 'class', 'todoList'); // this is the overall div that we will return at end of function
