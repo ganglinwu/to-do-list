@@ -218,9 +218,40 @@ html {
     flex-direction: column;
 }
 
+.projTitleWrapper /* wraps projTitleDiv and closeTodoList */{
+    display: flex;
+    align-items: center;
+    margin-bottom: 0.3rem;
+}
+
 .projTitleDiv /* contains project title */{
     font-weight: 900;
     color: var(--main-blue);
+
+    flex: 1;
+}
+
+.closeTodoList {
+    background-color: red;
+    width: 16px;
+    height: 16px;
+    border: none;
+    border-radius: 8px;
+}
+
+.closeTodoListText /* hidden on default, shows x on hover */ {
+    visibility: hidden;
+
+    font-size: 12px;
+    color: white;
+}
+
+.closeTodoList:hover p.closeTodoListText {
+    visibility: visible;
+}
+
+.closeTodoList:hover {
+    box-shadow: 2px 2px grey;
 }
 
 .todoContainer /* container for all the todo*/ {

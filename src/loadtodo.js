@@ -10,11 +10,22 @@ export default function loadTodo(clickEvent) {
     const projTitle = clickEvent.target.innerText;
     const projTitleNoWhiteSpace = projTitle.replace(/\s/g, "") + 'PROJECT'; // we need to give this todoList div a specific id, to prevent namespace clash, salt with 'PROJECT'
     todoList.setAttribute('id', projTitleNoWhiteSpace);  // this will allow us to refresh the todolist after adding todo items
+    const projTitleWrapper = createEle('div', 'class', 'projTitleWrapper'); // div to wrap title and close todolist div
     const projTitleDiv = createEle('div', 'class', 'projTitleDiv'); // div to contain title of Project
+    
+    // closeTodoList button
+    const closeTodoList = createEle('button', 'type', 'button');
+    closeTodoList.classList.add('closeTodoList');
+    const closeTodoListText = createEle('p', 'class', 'closeTodoListText');
+    closeTodoListText.innerText = 'x';
+    closeTodoList.appendChild(closeTodoListText);
+
     const todoContainer = createEle('div', 'class', 'todoContainer'); // div to containerize all the todo items under Project
 
     projTitleDiv.innerText = projTitle;
-    todoList.appendChild(projTitleDiv);
+    projTitleWrapper.appendChild(projTitleDiv);
+    projTitleWrapper.appendChild(closeTodoList);
+    todoList.appendChild(projTitleWrapper);
     todoList.appendChild(todoContainer);
     content.appendChild(todoList)
 
@@ -60,6 +71,17 @@ export default function loadTodo(clickEvent) {
                 addTodoInput.value = '';
             }
         }
+    })
+
+    // eventListener for closeTodoList button
+    closeTodoList.addEventListener('click', (e)=> {
+        // target = closeTodoListText (paragraph)
+        // 1st parent = closeTodoList (button)
+        // 2nd parent = projTitleWrapper (div)
+        // 3rd parent = div that contains the todos in the project
+        const projTodoList = e.target.parentElement.parentElement.parentElement;
+        removeAllChildNodes(projTodoList);
+        projTodoList.remove();
     })
 
     inputWrapper.appendChild(addTodoInput);
