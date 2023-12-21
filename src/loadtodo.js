@@ -300,6 +300,16 @@ function refreshTodoList(ProjectObj) {
     } else {
         const todoDiv = createEle('div', 'class', 'emptyTodoListPrompt'); // TODO: CSS emptyTodoListPrompt and give different styling
         todoDiv.innerText = 'todolist is empty, would you like to add todo?'; 
+        todoDiv.addEventListener('click', (e)=> {
+            // e.target = emptyTodoListPrompt div
+            // 1st parent = todoContainer div
+            // previous Sibling = projTitleWrapper div
+            // firstChild = projTitle div
+            const projTitle = e.target.parentElement.previousSibling.firstChild.innerText;
+            const projObj = gyh.projects[projTitle];
+            addNewTodoForm('', projObj);
+        });
+        projDiv.children[1].appendChild(todoDiv); 
     }
 }
 
