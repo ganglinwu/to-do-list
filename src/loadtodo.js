@@ -298,8 +298,8 @@ function refreshTodoList(ProjectObj) {
             projDiv.children[1].appendChild(createTodoDivDetailed(todo)); // add a detailed version which is hidden by default and position absolute
         })
     } else {
-        const todoDiv = createEle('div', 'class', 'emptyTodoListPrompt'); // TODO: CSS emptyTodoListPrompt and give different styling
-        todoDiv.innerText = 'todolist is empty, would you like to add todo?'; 
+        const todoDiv = createEle('div', 'class', 'emptyTodoListPrompt'); 
+        todoDiv.innerText = 'todolist is empty, click to add todo'; 
         todoDiv.addEventListener('click', (e)=> {
             // e.target = emptyTodoListPrompt div
             // 1st parent = todoContainer div
@@ -314,9 +314,5 @@ function refreshTodoList(ProjectObj) {
 }
 
 //TODO: sort by button
-//
-//TODO: remove todo list button (probably just a big X)
-//
-//TODO: display duedate, checklist(icon)
 //
 //TODO: form validation

@@ -277,7 +277,6 @@ html {
 
 .todoDiv, /* short verison of todo */ 
 .todoDivDetailed  /* detailed version of todo, hidden by default*/ {
-    display: block;
     position: relative;
 
     margin-bottom: 0.3rem;
@@ -289,6 +288,15 @@ html {
     font-size: 0.8rem;
 
     transition: all 0.3s ease;
+}
+
+.todoDiv {
+    display: flex;
+    align-items: center;
+}
+
+.todoDivDetailed {
+    display: block;
 }
 
 .hidden {
@@ -303,7 +311,19 @@ html {
 
     transition: all 0.2s ease-in-out;
 }
+    /* -----------------------------------------------------------*/
+    /* ----------------- CSS for todoDiv details -----------------*/
+    /* -----------------------------------------------------------*/
 
+.dueDateDiv {
+    margin-left: auto;
+    font-size: 0.6rem;
+}
+
+
+    /* -----------------------------------------------------------*/
+    /* ----------------- CSS for todoDiv details -----------------*/
+    /* -----------------------------------------------------------*/
 .highPriority:hover {
     background-position: left;
 }
