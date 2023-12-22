@@ -5,6 +5,7 @@ import checklistIconSrc from './img/checklist.png';
 export function createTodoDivShort(todo) {
     const todoDiv = createEle('div', 'class', 'todoDiv');
     const todoTitle = createEle('div', 'class', 'todoTitle');
+    const dueDateIconWrapper= createEle('div', 'class', 'dueDateIconWrapper');
     const dueDateDiv = createEle('div', 'class', 'dueDateDiv');
     if (todo.name.length < 18) {
         todoTitle.innerText = todo.name;
@@ -15,15 +16,15 @@ export function createTodoDivShort(todo) {
     todoDiv.appendChild(todoTitle);
 
     dueDateDiv.innerText = `${todo.dueDate.getDate()}-${todo.dueDate.getMonth() +1}-${todo.dueDate.getFullYear()}`
-    todoDiv.appendChild(dueDateDiv);
+    dueDateIconWrapper.appendChild(dueDateDiv);
     if (todo.checklistRequired) {
         const checklistIcon = new Image();
         checklistIcon.src = checklistIconSrc;
         checklistIcon.style.height = '12px';
         checklistIcon.style.width = '12px';
-        checklistIcon.style.margin = '0 0 0 auto'; //top right bottom left
-        todoDiv.appendChild(checklistIcon);
+        dueDateIconWrapper.appendChild(checklistIcon);
     }
+    todoDiv.appendChild(dueDateIconWrapper);
     // add class according to priority
     if (todo.priority === 'High') {
         todoDiv.classList.add('highPriority');
