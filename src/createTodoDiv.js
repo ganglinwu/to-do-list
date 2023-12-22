@@ -36,12 +36,28 @@ export function createTodoDivShort(todo) {
     todoDiv.addEventListener('click', revealDetails); //TODO: show details of todo
     return todoDiv;
 }
-// TODO: display dueDate and checklist icon
 
 export function createTodoDivDetailed(todo){
     const todoDiv = createEle('div', 'class', 'todoDivDetailed');
     todoDiv.classList.add('hidden');
-    todoDiv.innerText = todo.name + ' This is the detailed version of the todo';
+    // render div for each property of todo
+    const todoDivDetailedName = createEle('div', 'class', 'todoDivDetailedName');
+    const todoDivDetailedDescription = createEle('div', 'class', 'todoDivDetailedDescription');
+    const todoDivDetailedDueDate = createEle('div', 'class', 'todoDivDetailedDueDate');
+    const todoDivDetailedDuration = createEle('div', 'class', 'todoDivDetailedDuration');
+    const todoDivDetailedCompleted = createEle('div', 'class', 'todoDivDetailedCompleted');
+    const todoDivDetailedPriority = createEle('div', 'class', 'todoDivDetailedPriority');
+    const todoDivDetailedChecklistBool = createEle('div', 'class', 'todoDivDetailedChecklistBool');
+    const todoDivDetailedChecklist = createEle('div', 'class', 'todoDivDetailedChecklist');
+    
+    // test code
+    const testArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedCompleted, todoDivDetailedPriority, todoDivDetailedChecklistBool, todoDivDetailedChecklist]
+
+    testArr.forEach(element => {
+        element.innerText = 'Test';
+        todoDiv.appendChild(element);
+    })
+
     // add class according to priority
     if (todo.priority === 'High') {
         todoDiv.classList.add('highPriority');

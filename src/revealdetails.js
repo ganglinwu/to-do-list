@@ -7,8 +7,8 @@ export function revealDetails(clickEvent) {
 }
 
 export function hideDetails(clickEvent) {
-    const todoDivShort = clickEvent.target.previousSibling;
-    const todoDivDetailed = clickEvent.target;
+    const todoDivDetailed = clickEvent.target.parentElement;
+    const todoDivShort = todoDivDetailed.previousSibling;
 
     todoDivShort.classList.toggle('hidden');
     todoDivDetailed.classList.toggle('hidden');
