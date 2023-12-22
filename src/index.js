@@ -7,6 +7,8 @@ import loadTodo from './loadtodo.js';
 import Project from './projects.js';
 import Todo from './todo.js';
 
+import checklistIcon from './img/checklist.png'; // Icon by <a class="link_pro" href="https://freeicons.io/essential-web-4/checklist-check-mark-note-organizer-icon-40412">BECRIS</a> on <a href="https://freeicons.io">freeicons.io</a>
+
 // gyh object
 // gyh stands for guenyang hae, kinda means "just do it"
 //
@@ -46,7 +48,7 @@ export const gyh = {
 // TEST code to manually add todos
 
 const dateToday = new Date();
-const currentDay = dateToday.getDay();
+const currentDay = dateToday.getDate();
 const currentMonth = dateToday.getMonth();
 const currentYear = dateToday.getFullYear();
 
