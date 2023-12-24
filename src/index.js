@@ -57,7 +57,7 @@ document.body.appendChild(loadHome());
 
 // helper function to refresh list of projects in sidebar
 export function loadSidebarProj() {
-    const projListDiv = createEle('div', 'class', 'projListDiv');
+    const projListDiv = createEle('div', 'id', 'projListDiv');
     Object.keys(gyh.projects).forEach((key) => {
         const projDiv = createEle('div', 'class', 'projDiv');
         if (gyh.projects[key].title.length < 18) {
@@ -83,8 +83,8 @@ export function loadSidebarProj() {
 
 // helper function to remove child nodes
 export function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
+    while (parent.firstElementChild) {
+        parent.removeChild(parent.firstElementChild);
     }
 }
 

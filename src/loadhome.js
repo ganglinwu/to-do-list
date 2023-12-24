@@ -76,8 +76,7 @@ export default function loadHome() {
 
     // add list of projects
     const projListDiv = createEle('div', 'id', 'projListDiv');
-    projListDiv.appendChild(loadSidebarProj());
-    sidebar.appendChild(projListDiv);
+    sidebar.appendChild(loadSidebarProj());
 
     mainContainerDiv.appendChild(sidebar);
 
@@ -92,9 +91,10 @@ export default function loadHome() {
         const title = prompt('Please enter title of Project');
         const description = prompt('Please enter a short description of this project');
         gyh.projects[title] = new Project(title, description);
+        const projListDiv = document.getElementById('projListDiv');
         removeAllChildNodes(projListDiv);
         projListDiv.remove()
-        projListDiv.appendChild(loadSidebarProj());
+        sidebar.appendChild(loadSidebarProj());
     }))
     return mainContainerDiv;
 }
