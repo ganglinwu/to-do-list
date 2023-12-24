@@ -1,5 +1,8 @@
 export function revealDetails(clickEvent) {
-    const todoDivShort = clickEvent.target;
+    let todoDivShort = clickEvent.target;
+    while (!todoDivShort.classList.contains('todoDiv')){
+        todoDivShort = todoDivShort.parentElement;
+    }
     const todoDivDetailed = todoDivShort.nextSibling;
 
     todoDivShort.classList.toggle('hidden');
@@ -7,7 +10,10 @@ export function revealDetails(clickEvent) {
 }
 
 export function hideDetails(clickEvent) {
-    const todoDivDetailed = clickEvent.target.parentElement;
+    let todoDivDetailed = clickEvent.target;
+    while (!todoDivDetailed.classList.contains('todoDivDetailed')){
+        todoDivDetailed = todoDivDetailed.parentElement;
+    }
     const todoDivShort = todoDivDetailed.previousSibling;
 
     todoDivShort.classList.toggle('hidden');
