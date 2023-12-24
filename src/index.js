@@ -24,11 +24,7 @@ import checklistIcon from './img/checklist.png'; // Icon by <a class="link_pro" 
 
 export const gyh = {
     projects: {
-        '< 2 mins': new Project('< 2 mins', 'tasks that take less than 2 minutes to complete'),
-        '< 10 mins': new Project('< 10 mins', 'tasks that take less than 10 minutes to complete'),
-        '< 30 mins': new Project('< 30 mins', 'tasks that take less than 30 minutes to complete'),
-        '< 60 mins': new Project('< 60 mins', 'tasks that take less than 60 minutes to complete'),
-        '> 60 mins': new Project('> 60 mins', 'tasks that take more than 60 minutes to complete'),
+        'sample project': new Project('sample project', 'sample project for demonstration purpose'),
     }, 
 
 
@@ -53,7 +49,8 @@ const currentMonth = dateToday.getMonth();
 const currentYear = dateToday.getFullYear();
 
 //                                      constructor(name, description, dueDate, todoDuration, completed, priority, checklistRequired)
-gyh.projects['< 2 mins'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 5, false, 'high', true))
+gyh.projects['sample project'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 2, false, 'high', true));
+gyh.projects['sample project'].todoArray.push(new Todo('water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'low', false));
 
 
 document.body.appendChild(loadHome());
@@ -100,11 +97,3 @@ function isProjRendered(projTitle) {
        return true; 
     } else return false; 
 }
-
-//TODO: collapsible sidebar
-//
-//
-//TODO: no adding of task to projects sorted by duration
-//
-//
-
