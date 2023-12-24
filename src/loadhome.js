@@ -87,15 +87,26 @@ export default function loadHome() {
     mainContainerDiv.appendChild(content);
 
     // event listener for add project
-    [addProjIconElement, addProjText].forEach(htmlElement => htmlElement.addEventListener('click', () => {
+    [addProjIconElement, addProjText].forEach(htmlElement => htmlElement.addEventListener('click', (e) => {
         const title = prompt('Please enter title of Project');
+        if (isProjDuplicated(title)) {
+            alert('A project with the same name already exists!');
+            e.preventDefault();
+        } else {
         const description = prompt('Please enter a short description of this project');
         gyh.projects[title] = new Project(title, description);
         const projListDiv = document.getElementById('projListDiv');
         removeAllChildNodes(projListDiv);
         projListDiv.remove()
         sidebar.appendChild(loadSidebarProj());
+        }
     }))
     return mainContainerDiv;
 }
+
+// helper function to check if project with the same title exists
+
+function isProjDuplicated(title) {
+    return gyh.projects[title];
+    }
 
