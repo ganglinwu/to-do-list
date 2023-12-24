@@ -93,6 +93,7 @@ export default function loadHome() {
         const description = prompt('Please enter a short description of this project');
         gyh.projects[title] = new Project(title, description);
         removeAllChildNodes(projListDiv);
+        projListDiv.remove()
         projListDiv.appendChild(loadSidebarProj());
     }))
     return mainContainerDiv;
