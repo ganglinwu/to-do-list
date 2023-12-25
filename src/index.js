@@ -7,7 +7,8 @@ import loadTodo from './loadtodo.js';
 import Project from './projects.js';
 import Todo from './todo.js';
 
-import checklistIcon from './img/checklist.png'; // Icon by <a class="link_pro" href="https://freeicons.io/essential-web-4/checklist-check-mark-note-organizer-icon-40412">BECRIS</a> on <a href="https://freeicons.io">freeicons.io</a>
+import checklistIcon from './img/icons8-checklist-48.png'; // Icon by <a class="link_pro" href="https://freeicons.io/essential-web-4/checklist-check-mark-note-organizer-icon-40412">BECRIS</a> on <a href="https://freeicons.io">freeicons.io</a>
+import trashIconSrc from './img/icons8-trash-24.png';//<a target="_blank" href="https://icons8.com/icon/4B0kCMNiLlmW/trash">Trash</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
 // gyh object
 // gyh stands for guenyang hae, kinda means "just do it"

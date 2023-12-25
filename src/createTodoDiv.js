@@ -1,6 +1,6 @@
 import createEle from './createEle.js';
 import { revealDetails, hideDetails } from './revealdetails.js';
-import checklistIconSrc from './img/checklist.png';
+import checklistIconSrc from './img/icons8-checklist-48.png';
 
 export function createTodoDivShort(todo) {
     const todoDiv = createEle('div', 'class', 'todoDiv');
@@ -33,7 +33,7 @@ export function createTodoDivShort(todo) {
    } else if (todo.priority === 'Low'){
         todoDiv.classList.add('lowPriority');
     }
-    todoDiv.addEventListener('click', revealDetails); //TODO: show details of todo
+    todoDiv.addEventListener('click', revealDetails); 
     return todoDiv;
 }
 
