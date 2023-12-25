@@ -109,8 +109,8 @@ export function loadSidebarProj() {
 
 // helper function to remove child nodes
 export function removeAllChildNodes(parent) {
-    while (parent.firstElementChild) {
-        parent.removeChild(parent.firstElementChild);
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
     }
 }
 
