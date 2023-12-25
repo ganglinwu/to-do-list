@@ -4,6 +4,7 @@ import createEle from './createEle.js'
 import Project from './projects.js';
 import Todo from './todo.js';
 import { createTodoDivShort, createTodoDivDetailed } from './createTodoDiv.js';
+import { addNewProject } from './loadhome.js';
 
 export default function loadTodo(clickEvent) { 
     const todoList = createEle('div', 'class', 'todoList'); // this is the overall div that we will return at end of function
@@ -30,7 +31,9 @@ export default function loadTodo(clickEvent) {
     content.appendChild(todoList)
 
     // refresh todolist
-    refreshTodoList(gyh.projects[projTitle]);
+    if (gyh.projects[0]) { // first check if there are projects
+        refreshTodoList(gyh.projects[projTitle]);
+    } 
 
     // wrapper for input and submit btn
     const inputWrapper = createEle('div', 'class', 'inputWrapper');

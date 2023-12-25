@@ -183,13 +183,29 @@ html {
 
 .projDiv {
     margin-top: 0.3rem;
-
-    transition: all 0.3s ease-in-out;
+    display:flex;
+    transition: all 0.3s ease-out;
+    background: linear-gradient(to right, #fff 50%, red 50%) left;
+    background-size: 200%;
 }
 
-.projDiv:hover {
+.projDiv:has(.deleteProj:hover) {
+    background-position: right;
+}
+
+.projTitleSidebarDiv {
+    flex: 1;
+    transition: all 0.5s ease-in-out;
+}
+
+.projTitleSidebarDiv:hover {
     background-color: var(--main-blue);
     color: white;
+}
+
+.deleteProj {
+    margin-left: auto;
+    transition: all 0.3s ease-in-out;
 }
 
 #addProjIcon,

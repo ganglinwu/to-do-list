@@ -59,22 +59,47 @@ document.body.appendChild(loadHome());
 // helper function to refresh list of projects in sidebar
 export function loadSidebarProj() {
     const projListDiv = createEle('div', 'id', 'projListDiv');
-    Object.keys(gyh.projects).forEach((key) => {
+    Object.keys(gyh.projects).forEach((key) => { 
         const projDiv = createEle('div', 'class', 'projDiv');
+        const projTitleSidebarDiv = createEle('div', 'class', 'projTitleSidebarDiv');
+        const deleteProj = createEle('img', 'class', 'deleteProj');
+        deleteProj.src = trashIconSrc;
         if (gyh.projects[key].title.length < 18) {
-            projDiv.innerText = gyh.projects[key].title;
+            projTitleSidebarDiv.innerText = gyh.projects[key].title;
         } else {
             const shortenedProjTitle = gyh.projects[key].title.slice(0,18);
-            projDiv.innerText = shortenedProjTitle;
+            projTitleSidebarDiv.innerText = shortenedProjTitle;
         }
+        projDiv.appendChild(projTitleSidebarDiv);
+        projDiv.appendChild(deleteProj);
 
         // add event listener for each Proj in the sidebar
-        projDiv.addEventListener('click', (e) => {
+        projTitleSidebarDiv.addEventListener('click', (e) => {
             const projTitle = e.target.innerText;
             // first check if project of same name alredy rendered in content area
             isProjRendered(projTitle) ? e.preventDefault() : loadTodo(e);
-           
         });
+
+        // add event listener for each delete icon in the sidebar
+        deleteProj.addEventListener('click', (e)=> {
+            const projTitle = projTitleSidebarDiv.innerText;
+            const projTitleNoWhiteSpace = projTitle.replace(/\s/g, "") + 'PROJECT';
+            let deleteConfirmText = prompt(`To confirm delete, please enter \'${projTitle}\'`);
+            if (deleteConfirmText === projTitle) {
+                if (isProjRendered(projTitle)) {
+                    const renderedProjTodoList = document.getElementById(projTitleNoWhiteSpace);
+                    removeAllChildNodes(renderedProjTodoList);
+                    renderedProjTodoList.remove()
+                }
+                const sidebarProj = e.target.parentElement;
+                removeAllChildNodes(sidebarProj);
+                sidebarProj.remove();
+                alert(`${projTitle} has been deleted!`)
+            } else {
+                e.preventDefault();
+                alert('Project not deleted.')
+            }
+        })
         
         // add to container, end of loop
         projListDiv.appendChild(projDiv);
