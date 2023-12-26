@@ -31,7 +31,7 @@ export default function loadTodo(clickEvent) {
     content.appendChild(todoList)
 
     // refresh todolist
-    if (gyh.projects[0]) { // first check if there are projects
+    if (Object.keys(gyh.projects).length) { // first check if there are projects
         refreshTodoList(gyh.projects[projTitle]);
     } 
 
