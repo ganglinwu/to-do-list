@@ -169,12 +169,14 @@ html {
     display: flex;
     align-items: center;
 
-    transition: all 0.2s ease-in-out;
+    transition: all 0.5s ease;
+    background: linear-gradient(to top, #fff 50%, yellow 50%) bottom;
+    background-size: 100% 200%;
 }
 
 #addProjContainer:hover {
-    background-color: var(--main-blue);
-    color: white;
+    background-position: top;
+    color: var(--main-blue);
 }
 
 #addProjText {
@@ -184,7 +186,7 @@ html {
 .projDiv {
     margin-top: 0.3rem;
     display:flex;
-    transition: all 0.3s ease-out;
+    transition: all 0.5s ease;
     background: linear-gradient(to right, #fff 50%, red 50%) left;
     background-size: 200%;
 }
@@ -196,10 +198,13 @@ html {
 .projTitleSidebarDiv {
     flex: 1;
     transition: all 0.5s ease-in-out;
+
+    background: linear-gradient(to left, rgba(255,255,255,0) 50%, var(--main-blue) 50%) right;
+    background-size: 200%;
 }
 
 .projTitleSidebarDiv:hover {
-    background-color: var(--main-blue);
+    background-position: left;
     color: white;
 }
 
