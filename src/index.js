@@ -50,8 +50,8 @@ const currentMonth = dateToday.getMonth();
 const currentYear = dateToday.getFullYear();
 
 //                                      constructor(name, description, dueDate, todoDuration, completed, priority, checklistRequired)
-gyh.projects['sample project'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 2, false, 'high', true));
-gyh.projects['sample project'].todoArray.push(new Todo('water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'low', false));
+gyh.projects['sample project'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 2, false, 'High', true));
+gyh.projects['sample project'].todoArray.push(new Todo('water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'Low', false));
 
 
 document.body.appendChild(loadHome());
