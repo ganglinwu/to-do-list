@@ -203,17 +203,6 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     priorityLi.appendChild(priorityInput);
     todoFormUl.appendChild(priorityLi);
 
-    // checklist label and input
-    const checklistLi = createEle('li', 'class', 'checklistLi');
-    const checklistLabel = createEle('label', 'for', 'checklist');
-    const checklistInput = createEle('input', 'id', 'checklist');
-    checklistLabel.innerText = 'Do you need a checklist?';
-    checklistInput.setAttribute('type', 'checkbox');
-    checklistInput.setAttribute('value', 'true');
-    checklistLi.appendChild(checklistLabel);
-    checklistLi.appendChild(checklistInput);
-    todoFormUl.appendChild(checklistLi);
-
     // add todo button
     const buttonLi = createEle('li', 'class', 'buttonLi');
     const addTodoBtn = createEle('button', 'class', 'addTodoBtn');
@@ -242,7 +231,6 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
                 durationInput.value, 
                 completedLabel.value, 
                 priorityInput.value, 
-                checklistInput.value
                 )
             if (ProjectObject.isTodoDuplicate(newTodo)) {
                 alert('A todo with the same name and due date already exists in this project. Please try again.')
@@ -266,7 +254,6 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
                 durationInput.value, 
                 completedLabel.value, 
                 priorityInput.value, 
-                checklistInput.value
             )
             if (ProjectObject.isTodoDuplicate(newTodo)) {
                 alert('A todo with the same name and due date already exists in this project. Please try again.')

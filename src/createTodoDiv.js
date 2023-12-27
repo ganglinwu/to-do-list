@@ -1,6 +1,5 @@
 import createEle from './createEle.js';
 import { revealDetails, hideDetails } from './revealdetails.js';
-import checklistIconSrc from './img/icons8-checklist-48.png';
 import editIconSrc from './img/icons8-edit-26.png'
 
 export function createTodoDivShort(todo) {
@@ -15,13 +14,6 @@ export function createTodoDivShort(todo) {
         todoTitle.innerText = shortenedtodoName;
     }   
     todoDiv.appendChild(todoTitle);
-    if (todo.checklistRequired) {
-        const checklistIcon = new Image();
-        checklistIcon.src = checklistIconSrc;
-        checklistIcon.style.height = '12px';
-        checklistIcon.style.width = '12px';
-        dueDateIconWrapper.appendChild(checklistIcon);
-    }
     todoDiv.appendChild(dueDateIconWrapper);
 
     dueDateDiv.innerText = `${todo.dueDate.getDate()}-${todo.dueDate.getMonth() +1}-${todo.dueDate.getFullYear()}`
@@ -48,10 +40,8 @@ export function createTodoDivDetailed(todo){
     const todoDivDetailedDuration = createEle('div', 'class', 'todoDivDetailedDuration');
     const todoDivDetailedCompleted = createEle('div', 'class', 'todoDivDetailedCompleted');
     const todoDivDetailedPriority = createEle('div', 'class', 'todoDivDetailedPriority');
-    const todoDivDetailedChecklistRequired = createEle('div', 'class', 'todoDivDetailedChecklistRequired');
-    const todoDivDetailedChecklist = createEle('div', 'class', 'todoDivDetailedChecklist');
     
-    const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedCompleted, todoDivDetailedPriority, todoDivDetailedChecklistRequired, todoDivDetailedChecklist]
+    const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedCompleted, todoDivDetailedPriority]
     
     
     todoDivDetailsArr.forEach(element=> {

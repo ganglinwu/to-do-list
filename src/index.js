@@ -7,7 +7,6 @@ import loadTodo from './loadtodo.js';
 import Project from './projects.js';
 import Todo from './todo.js';
 
-import checklistIcon from './img/icons8-checklist-48.png'; // Icon by <a class="link_pro" href="https://freeicons.io/essential-web-4/checklist-check-mark-note-organizer-icon-40412">BECRIS</a> on <a href="https://freeicons.io">freeicons.io</a>
 import trashIconSrc from './img/icons8-trash-24.png';//<a target="_blank" href="https://icons8.com/icon/4B0kCMNiLlmW/trash">Trash</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
 
 // gyh object
@@ -49,9 +48,9 @@ const currentDay = dateToday.getDate();
 const currentMonth = dateToday.getMonth();
 const currentYear = dateToday.getFullYear();
 
-//                                      constructor(name, description, dueDate, todoDuration, completed, priority, checklistRequired)
-gyh.projects['sample project'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 2, false, 'High', true));
-gyh.projects['sample project'].todoArray.push(new Todo('water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'Low', false));
+//                                      constructor(name, description, dueDate, todoDuration, completed, priority)
+gyh.projects['sample project'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 2, false, 'High'));
+gyh.projects['sample project'].todoArray.push(new Todo('water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'Low'));
 
 
 document.body.appendChild(loadHome());
