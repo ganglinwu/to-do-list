@@ -14,9 +14,6 @@ export function createTodoDivShort(todo) {
         todoTitle.innerText = shortenedtodoName;
     }   
     todoDiv.appendChild(todoTitle);
-
-    dueDateDiv.innerText = `${todo.dueDate.getDate()}-${todo.dueDate.getMonth() +1}-${todo.dueDate.getFullYear()}`
-    dueDateIconWrapper.appendChild(dueDateDiv);
     if (todo.checklistRequired) {
         const checklistIcon = new Image();
         checklistIcon.src = checklistIconSrc;
@@ -25,6 +22,9 @@ export function createTodoDivShort(todo) {
         dueDateIconWrapper.appendChild(checklistIcon);
     }
     todoDiv.appendChild(dueDateIconWrapper);
+
+    dueDateDiv.innerText = `${todo.dueDate.getDate()}-${todo.dueDate.getMonth() +1}-${todo.dueDate.getFullYear()}`
+    dueDateIconWrapper.appendChild(dueDateDiv);
     // add class according to priority
     if (todo.priority === 'High') {
         todoDiv.classList.add('highPriority');
