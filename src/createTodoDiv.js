@@ -1,6 +1,7 @@
 import createEle from './createEle.js';
 import { revealDetails, hideDetails } from './revealdetails.js';
 import checklistIconSrc from './img/icons8-checklist-48.png';
+import editIconSrc from './img/icons8-edit-26.png'
 
 export function createTodoDivShort(todo) {
     const todoDiv = createEle('div', 'class', 'todoDiv');
@@ -47,14 +48,42 @@ export function createTodoDivDetailed(todo){
     const todoDivDetailedDuration = createEle('div', 'class', 'todoDivDetailedDuration');
     const todoDivDetailedCompleted = createEle('div', 'class', 'todoDivDetailedCompleted');
     const todoDivDetailedPriority = createEle('div', 'class', 'todoDivDetailedPriority');
-    const todoDivDetailedChecklistBool = createEle('div', 'class', 'todoDivDetailedChecklistBool');
+    const todoDivDetailedChecklistRequired = createEle('div', 'class', 'todoDivDetailedChecklistRequired');
     const todoDivDetailedChecklist = createEle('div', 'class', 'todoDivDetailedChecklist');
     
-    // test code
-    const testArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedCompleted, todoDivDetailedPriority, todoDivDetailedChecklistBool, todoDivDetailedChecklist]
+    const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedCompleted, todoDivDetailedPriority, todoDivDetailedChecklistRequired, todoDivDetailedChecklist]
+    
+    
+    todoDivDetailsArr.forEach(element=> {
+        // obtained key by slicing the first 15 characters
+        // i.e. todoDivDetailedName => Name
+        const capitalizedName = element.classList[0].slice(15);
+        // lowercase only the first letter 
+        // e.g. Name => name , DueDate => dueDate
+        const camelCaseName = capitalizedName[0].toLowerCase() + capitalizedName.slice(1);
 
-    testArr.forEach(element => {
-        element.innerText = 'Test';
+        const labelName = removeUpperCamelCase(capitalizedName); 
+        
+        //initialize edit icon
+        const editIcon = new Image();
+        editIcon.src = editIconSrc;
+        editIcon.style.height = '12px';
+        editIcon.style.width = '12px';
+        editIcon.classList.add('editIcon');
+
+        // initialize divs
+        const label = createEle('div', 'class', 'todoLabel');
+        label.innerText = labelName;
+        const content = createEle('div', 'class', 'content');
+        // check if Date object, we just want to concatenated date string
+        if (todo[camelCaseName] instanceof Date) {
+            content.innerText = todo[camelCaseName].toLocaleDateString();
+        } else {
+            content.innerText = todo[camelCaseName];
+        }    
+        element.appendChild(label);
+        element.appendChild(content);
+        element.appendChild(editIcon);
         todoDiv.appendChild(element);
     })
 
@@ -72,3 +101,20 @@ export function createTodoDivDetailed(todo){
 
 //TODO: consider writing a class for this since both functions need to access the date object
 //alternatively consider a date class somewhere we can access the date
+
+
+
+// helper function to turn UpperCamelCase to normal word
+function removeUpperCamelCase(word) {
+    let result = '';
+    result += word[0];
+    for (let i=1; i<word.length; i++){
+        if (word[i] === word[i].toUpperCase()) {
+            result += ` ${word[i]}`;
+        } else {
+            result += word[i];
+        }
+    }
+    result += ':';
+    return result
+}

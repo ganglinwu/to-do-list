@@ -349,6 +349,32 @@ html {
     font-size: 0.6rem;
 }
 
+.todoDivDetailedName,
+.todoDivDetailedDescription,
+.todoDivDetailedDueDate,
+.todoDivDetailedDuration,
+.todoDivDetailedCompleted,
+.todoDivDetailedPriority,
+.todoDivDetailedChecklistRequired,
+.todoDivDetailedChecklist,
+.content {
+    display:flex;
+    font-size: 0.8rem;
+
+    position: relative;
+
+    margin-top: 0.4rem;
+}
+
+.todoLabel {
+    position: absolute;
+    font-size: 0.5rem;
+}
+
+.editIcon {
+    margin-left:auto;
+    margin-top: 0.6rem;
+}
 
     /* -----------------------------------------------------------*/
     /* ----------------- CSS for todoDiv details -----------------*/
