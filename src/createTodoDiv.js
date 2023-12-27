@@ -49,10 +49,9 @@ export function createTodoDivDetailed(todo){
     const todoDivDetailedDescription = createEle('div', 'class', 'todoDivDetailedDescription');
     const todoDivDetailedDueDate = createEle('div', 'class', 'todoDivDetailedDueDate');
     const todoDivDetailedDuration = createEle('div', 'class', 'todoDivDetailedDuration');
-    const todoDivDetailedCompleted = createEle('div', 'class', 'todoDivDetailedCompleted');
     const todoDivDetailedPriority = createEle('div', 'class', 'todoDivDetailedPriority');
     
-    const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedCompleted, todoDivDetailedPriority]
+    const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedPriority]
     
     
     todoDivDetailsArr.forEach(element=> {
