@@ -51,7 +51,8 @@ export function createTodoDivDetailed(todo){
     const todoDivDetailedDuration = createEle('div', 'class', 'todoDivDetailedDuration');
     const todoDivDetailedPriority = createEle('div', 'class', 'todoDivDetailedPriority');
     
-    const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedPriority]
+    const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedPriority] 
+    // TODO: dueDate needs to be treaeted separately, it needs to have it's own addEventListener for the edit icon
     
     
     todoDivDetailsArr.forEach(element=> {
@@ -77,6 +78,12 @@ export function createTodoDivDetailed(todo){
         saveEdit.classList.add('hidden');
         saveEdit.innerText = 'Save'
 
+        // initialze cancel edit button
+        const cancelEdit = createEle('button', 'type', 'button');
+        cancelEdit.classList.add('cancelEdit');
+        cancelEdit.classList.add('hidden');
+        cancelEdit.innerText = 'Cancel'
+
         // initialize divs
         const label = createEle('div', 'class', 'todoLabel');
         label.innerText = labelName;
@@ -92,12 +99,14 @@ export function createTodoDivDetailed(todo){
         element.appendChild(content);
         element.appendChild(editIcon);
         element.appendChild(saveEdit);
+        element.appendChild(cancelEdit);
         todoDiv.appendChild(element);
 
         //eventlistener for edit icon
         editIcon.addEventListener('click', (e)=> {
             editIcon.classList.toggle('hidden');
             saveEdit.classList.toggle('hidden');
+            cancelEdit.classList.toggle('hidden');
 
             //move label upwards slightly
             e.target.parentElement.firstChild.classList.toggle('up8px');
@@ -109,7 +118,9 @@ export function createTodoDivDetailed(todo){
             //eventlistener for enter and esc keyup
             e.target.previousSibling.addEventListener('keydown', (keyEvt)=> {
                 if (keyEvt.key === 'Enter') {
-                    e.target.nextSibling.click()
+                    e.target.nextSibling.click();
+                } else if (keyEvt.key === 'Escape') {
+                    e.target.nextSibling.nextSibling.click();
                 }
             })
         })
@@ -135,6 +146,7 @@ export function createTodoDivDetailed(todo){
 
             editIcon.classList.toggle('hidden');
             saveEdit.classList.toggle('hidden');
+            cancelEdit.classList.toggle('hidden');
 
             // refreshes todoDivShort
             const todoDivDetailed = e.target.parentElement.parentElement;
@@ -149,6 +161,30 @@ export function createTodoDivDetailed(todo){
             newTodoDivDetailed.classList.remove('hidden');
             todoDivDetailed.parentElement.insertBefore(newTodoDivDetailed, todoDivDetailed.nextSibling);
             todoDivDetailed.remove();
+        })
+
+        //eventlistener for cancel edit button
+        cancelEdit.addEventListener('click', (e)=> {
+            const todoValue = e.target.previousSibling.previousSibling.previousSibling;
+            todoValue.setAttribute('contenteditable', 'false');
+            todoValue.style.border = 'none';
+            
+            // move label back down
+            const todoKey = e.target.parentElement.firstChild;
+            todoKey.classList.toggle('up8px');
+
+            // cancel changes to gyh.[projects]
+            const projTitle = e.target.parentElement.parentElement.parentElement.previousSibling.innerText;
+            const todoObjKey = todoKey.innerText;
+            const todoObjKeyCamelCase = todoObjKey[0].toLowerCase() + todoObjKey.slice(1);
+            const indexNum = countIndexNum(e);
+
+            // cancel new todo value
+            todoValue.innerText = gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase];
+
+            editIcon.classList.toggle('hidden');
+            saveEdit.classList.toggle('hidden');
+            cancelEdit.classList.toggle('hidden');
         })
     })
 

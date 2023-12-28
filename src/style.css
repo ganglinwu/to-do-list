@@ -416,6 +416,16 @@ html {
     margin-left:auto;
     margin-top: 0.6rem;
 }
+
+.cancelEdit {
+    background-color: red;
+    color: white;
+    border-radius: 5px;
+    font-size: 0.5rem;
+    height: 0.7rem;
+    margin-left:auto;
+    margin-top: 0.6rem;
+}
     /* ------------------------------------------------------------*/
     /* ---------------END CSS for todoDiv details -----------------*/
     /* ------------------------------------------------------------*/
