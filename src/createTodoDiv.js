@@ -116,35 +116,39 @@ export function createTodoDivDetailed(todo){
 
         //eventlistener for save edit button
         saveEdit.addEventListener('click', (e)=> {
-            e.target.previousSibling.previousSibling.setAttribute('contenteditable', 'false');
-            e.target.previousSibling.previousSibling.style.border = 'none';
+            const todoValue = e.target.previousSibling.previousSibling;
+            todoValue.setAttribute('contenteditable', 'false');
+            todoValue.style.border = 'none';
             
             // move label back down
-            e.target.parentElement.firstChild.classList.toggle('up8px');
+            const todoKey = e.target.parentElement.firstChild;
+            todoKey.classList.toggle('up8px');
 
             // save changes to gyh.[projects]
             const projTitle = e.target.parentElement.parentElement.parentElement.previousSibling.innerText;
-            const todoObjKey = e.target.parentElement.firstChild.innerText;
+            const todoObjKey = todoKey.innerText;
             const todoObjKeyCamelCase = todoObjKey[0].toLowerCase() + todoObjKey.slice(1);
             const indexNum = countIndexNum(e);
 
-            gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase] = e.target.previousSibling.previousSibling.innerText;
+            // save new todo value
+            gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase] = todoValue.innerText;
 
             editIcon.classList.toggle('hidden');
             saveEdit.classList.toggle('hidden');
 
             // refreshes todoDivShort
-            e.target.parentElement.parentElement.previousSibling.remove();
+            const todoDivDetailed = e.target.parentElement.parentElement;
+            const todoDivShort = todoDivDetailed.previousSibling;
+            todoDivShort.remove();
             const newTodoDivShort = createTodoDivShort(gyh.projects[projTitle].todoArray[indexNum]);
             newTodoDivShort.classList.add('hidden');
-            e.target.parentElement.parentElement.parentElement.insertBefore(newTodoDivShort, e.target.parentElement.parentElement);
+            todoDivDetailed.parentElement.insertBefore(newTodoDivShort, todoDivDetailed);
 
             // refreshes todoDivDetailed
             const newTodoDivDetailed = createTodoDivDetailed(gyh.projects[projTitle].todoArray[indexNum]);
             newTodoDivDetailed.classList.remove('hidden');
-            e.target.parentElement.parentElement.parentElement.insertBefore(newTodoDivDetailed, e.target.parentElement.parentElement.nextSibling);
-            e.target.parentElement.parentElement.remove();
-            console.log(gyh);
+            todoDivDetailed.parentElement.insertBefore(newTodoDivDetailed, todoDivDetailed.nextSibling);
+            todoDivDetailed.remove();
         })
     })
 
