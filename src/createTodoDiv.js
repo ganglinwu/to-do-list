@@ -17,7 +17,7 @@ export function createTodoDivShort(todo) {
     todoDiv.appendChild(todoTitle);
     todoDiv.appendChild(dueDateIconWrapper);
 
-    dueDateDiv.innerText = `${todo.dueDate.getDate()}-${todo.dueDate.getMonth() +1}-${todo.dueDate.getFullYear()}`
+    dueDateDiv.innerText = todo.dueDate.toLocaleDateString(); 
     dueDateIconWrapper.appendChild(dueDateDiv);
     // add class according to priority
     if (todo.priority === 'High') {
@@ -57,12 +57,16 @@ export function createTodoDivDetailed(todo){
     
     todoDivDetailsArr.forEach(element=> {
         // obtained key by slicing the first 15 characters
-        // i.e. todoDivDetailedName => Name
+        // i.e. todoDivDetailedDueDate => DueDate
+        // capitalizedName is in UpperCamelCase
         const capitalizedName = element.classList[0].slice(15);
+
         // lowercase only the first letter 
         // e.g. Name => name , DueDate => dueDate
         const camelCaseName = capitalizedName[0].toLowerCase() + capitalizedName.slice(1);
 
+        // our label must be in proper english
+        // we use a helper function to turn DueDate => Due Date
         const labelName = removeUpperCamelCase(capitalizedName); 
         
         //initialize edit icon
