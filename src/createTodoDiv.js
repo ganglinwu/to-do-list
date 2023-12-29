@@ -114,15 +114,37 @@ export function createTodoDivDetailed(todo){
             saveEdit.classList.toggle('hidden');
             cancelEdit.classList.toggle('hidden');
 
+            const selectorInput = createEle('select', 'id', 'editPriority');
             //move label upwards slightly
             e.target.parentElement.firstChild.classList.toggle('up8px');
 
-            e.target.previousSibling.setAttribute('contenteditable', 'true');
-            e.target.previousSibling.style.border = '3px var(--main-blue) solid';
-            e.target.previousSibling.focus();
+            if (e.target.parentElement.firstChild.innerText === 'Priority') {
+                e.target.previousSibling.innerText = '';
+                const highP = createEle('option', 'value', 'High');
+                const mediumP = createEle('option', 'value', 'Medium');
+                const lowP = createEle('option', 'value', 'Low');
+                [highP, mediumP, lowP].forEach(element => {
+                    element.innerText = element.value;
+                    selectorInput.appendChild(element); 
+                });
+                e.target.parentElement.insertBefore(selectorInput,e.target.previousSibling);
+            } else {
+                e.target.previousSibling.setAttribute('contenteditable', 'true');
+                e.target.previousSibling.style.border = '3px var(--main-blue) solid';
+                e.target.previousSibling.focus();
+            }
 
             //eventlistener for enter and esc keyup
             e.target.previousSibling.addEventListener('keydown', (keyEvt)=> {
+                if (keyEvt.key === 'Enter') {
+                    e.target.nextSibling.click();
+                } else if (keyEvt.key === 'Escape') {
+                    e.target.nextSibling.nextSibling.click();
+                }
+            })
+
+            //eventlistener for enter and esc keyup when input selector is focused
+            selectorInput.addEventListener('keydown', (keyEvt)=> {
                 if (keyEvt.key === 'Enter') {
                     e.target.nextSibling.click();
                 } else if (keyEvt.key === 'Escape') {
@@ -143,12 +165,22 @@ export function createTodoDivDetailed(todo){
 
             // save changes to gyh.[projects]
             const projTitle = e.target.parentElement.parentElement.parentElement.previousSibling.innerText;
-            const todoObjKey = todoKey.innerText;
+            const todoObjKey = todoKey.innerText.replace(/\s+/g, '');
             const todoObjKeyCamelCase = todoObjKey[0].toLowerCase() + todoObjKey.slice(1);
             const indexNum = countIndexNum(e);
 
             // save new todo value
-            gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase] = todoValue.innerText;
+            if (todoKey.innerText === 'Due Date') {
+                const dateStringArr = todoValue.innerText.split('/');
+                gyh.projects[projTitle].todoArray[indexNum]['dueDate'] = new Date(Number(dateStringArr[2]), Number(dateStringArr[1])-1, Number(dateStringArr[0]));
+            } else if (todoKey.innerText === 'Priority') {
+                const selector = document.getElementById('editPriority');
+                gyh.projects[projTitle].todoArray[indexNum]['priority'] = selector.value;
+                selector.nextSibling.classList.toggle('hidden');
+                selector.remove();
+            } else {
+                gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase] = todoValue.innerText;
+            }
 
             editIcon.classList.toggle('hidden');
             saveEdit.classList.toggle('hidden');
@@ -181,12 +213,21 @@ export function createTodoDivDetailed(todo){
 
             // cancel changes to gyh.[projects]
             const projTitle = e.target.parentElement.parentElement.parentElement.previousSibling.innerText;
-            const todoObjKey = todoKey.innerText;
+            const todoObjKey = todoKey.innerText.replace(/\s+/g, "");
             const todoObjKeyCamelCase = todoObjKey[0].toLowerCase() + todoObjKey.slice(1);
             const indexNum = countIndexNum(e);
 
             // cancel new todo value
-            todoValue.innerText = gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase];
+            if (todoKey.innerText === 'Due Date') {
+                todoValue.innerText = gyh.projects[projTitle].todoArray[indexNum]['dueDate'].toLocaleDateString();
+                ;
+            } else if (todoKey.innerText = 'Priority') {
+                const selector = document.getElementById('editPriority');
+                selector.remove()
+                todoValue.innerText = gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase];
+            } else {
+                todoValue.innerText = gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase];
+            }
 
             editIcon.classList.toggle('hidden');
             saveEdit.classList.toggle('hidden');
