@@ -75,8 +75,6 @@ export function createTodoDivDetailed(todo){
     const todoDivDetailedPriority = createEle('div', 'class', 'todoDivDetailedPriority');
     
     const todoDivDetailsArr = [todoDivDetailedName, todoDivDetailedDescription, todoDivDetailedDueDate, todoDivDetailedDuration, todoDivDetailedPriority] 
-    // TODO: dueDate needs to be treaeted separately, it needs to have it's own addEventListener for the edit icon
-    
     
     todoDivDetailsArr.forEach(element=> {
         // obtained key by slicing the first 15 characters
@@ -288,11 +286,6 @@ export function createTodoDivDetailed(todo){
     minimizeBtn.addEventListener('click', hideDetails);
     return todoDiv
 }
-
-//TODO: consider writing a class for this since both functions need to access the date object
-//alternatively consider a date class somewhere we can access the date
-
-
 
 // helper function to turn UpperCamelCase to normal word
 function removeUpperCamelCase(word) {
