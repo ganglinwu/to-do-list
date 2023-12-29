@@ -92,6 +92,8 @@ export function createTodoDivDetailed(todo){
         // check if Date object, we just want to concatenated date string
         if (todo[camelCaseName] instanceof Date) {
             content.innerText = todo[camelCaseName].toLocaleDateString();
+        } else if (todo[camelCaseName]=== undefined) {
+            content.innerText = ''
         } else {
             content.innerText = todo[camelCaseName];
         }    
