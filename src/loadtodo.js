@@ -1,10 +1,10 @@
 import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
-
 import createEle from './createEle.js'
-import Project from './projects.js';
-import Todo from './todo.js';
 import { createTodoDivShort, createTodoDivDetailed } from './createTodoDiv.js';
 import { addNewProject } from './loadhome.js';
+
+import Project from './projects.js';
+import Todo from './todo.js';
 
 export default function loadTodo(clickEvent) { 
     const todoList = createEle('div', 'class', 'todoList'); // this is the overall div that we will return at end of function
@@ -92,7 +92,6 @@ export default function loadTodo(clickEvent) {
     todoList.appendChild(inputWrapper);
 };
 
-// helper function to load form to ask user about details of new todo
 // since the form is created and should be GC once it is done
 // IIFE is perfect for this use case
 const addNewTodoForm = (function (todoName, ProjectObject) {
@@ -303,6 +302,4 @@ function refreshTodoList(ProjectObj) {
     }
 }
 
-//TODO: sort by button
-//
 //TODO: form validation

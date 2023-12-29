@@ -1,11 +1,12 @@
+import createEle from './createEle.js';
+import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
+
+import Project from './projects.js';
+import Todo from './todo.js';
+
 import logo from './img/logo/png/logo-no-background.png';
 import addProjIcon from './img/add-task-icon.png'; 
 // add task icon by icons8
-
-import createEle from './createEle.js';
-import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
-import Project from './projects.js';
-import Todo from './todo.js';
 
 export default function loadHome() {
     // create main container div
@@ -90,7 +91,6 @@ export default function loadHome() {
     addProjContainer.appendChild(addProjText);
 
     // add list of projects
-    const projListDiv = createEle('div', 'id', 'projListDiv');
     sidebar.appendChild(loadSidebarProj());
 
     mainContainerDiv.appendChild(sidebar);

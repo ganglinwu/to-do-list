@@ -41,7 +41,7 @@ export const gyh = {
     },
    };
 
-// TEST code to manually add todos
+/* ---------- TEST code to manually add todos ----------  */
 
 const dateToday = new Date();
 const currentDay = dateToday.getDate();
@@ -53,7 +53,15 @@ gyh.projects['sample project'].todoArray.push(new Todo('print pdf', 'for mum\'s 
 gyh.projects['sample project'].todoArray.push(new Todo('water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'Low'));
 
 
+/* ---------- END OF TEST code to manually add todos ----------  */
+
+// load home page
 document.body.appendChild(loadHome());
+
+
+
+
+/* -------------------- START OF helper functions --------------------  */
 
 // helper function to refresh list of projects in sidebar
 export function loadSidebarProj() {
@@ -122,3 +130,5 @@ function isProjRendered(projTitle) {
        return true; 
     } else return false; 
 }
+
+/* -------------------- END OF helper functions --------------------  */
