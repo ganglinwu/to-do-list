@@ -228,7 +228,7 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
                 descriptionInput.value, 
                 new Date(dueDateInput.value), 
                 durationInput.value, 
-                completedLabel.value, 
+                completedInput.checked, 
                 priorityInput.value, 
                 )
             if (ProjectObject.isTodoDuplicate(newTodo)) {
