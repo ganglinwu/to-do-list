@@ -273,7 +273,7 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
 })
 
 // helper function to refresh todo items in a todolist
-function refreshTodoList(ProjectObj) {
+export function refreshTodoList(ProjectObj) {
     const projTitleNoWhiteSpace = ProjectObj.title.replace(/\s/g, "") + 'PROJECT'; // all todolists have id that contains no whitespace, and salted with 'PROJECT' to prevent namespace clash 
     const projDiv = document.getElementById(projTitleNoWhiteSpace);
     // firstly remove preveious todos

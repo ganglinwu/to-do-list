@@ -322,7 +322,7 @@ html {
     border: 1px solid grey; 
     border-radius: 5px;
 
-    padding: 0.4rem 0.6rem;
+    padding: 0.4rem 0.3rem;
 
     font-size: 0.8rem;
 
@@ -334,6 +334,10 @@ html {
 .todoDiv {
     display: flex;
     align-items: center;
+}
+
+.checkbox {
+    margin-right: 0.2rem;
 }
 
 .todoDivDetailed {

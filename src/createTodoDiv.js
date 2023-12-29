@@ -1,19 +1,25 @@
 import createEle from './createEle.js';
 import { revealDetails, hideDetails } from './revealdetails.js';
-import editIconSrc from './img/icons8-edit-26.png'
 import { gyh } from './index.js';
+import { refreshTodoList } from './loadtodo.js';
+
+import editIconSrc from './img/icons8-edit-26.png'
 
 export function createTodoDivShort(todo) {
     const todoDiv = createEle('div', 'class', 'todoDiv');
     const todoTitle = createEle('div', 'class', 'todoTitle');
     const dueDateIconWrapper= createEle('div', 'class', 'dueDateIconWrapper');
     const dueDateDiv = createEle('div', 'class', 'dueDateDiv');
+    const checkbox = createEle('input','type','checkbox');
+    checkbox.classList.add('checkbox');
+
     if (todo.name.length < 18) {
         todoTitle.innerText = todo.name;
     } else {
         const shortenedtodoName = todo.name.slice(0,18);
         todoTitle.innerText = shortenedtodoName;
     }   
+    todoDiv.appendChild(checkbox);
     todoDiv.appendChild(todoTitle);
     todoDiv.appendChild(dueDateIconWrapper);
 
@@ -32,14 +38,25 @@ export function createTodoDivShort(todo) {
     // if todo is completed add class to strikethrough text
     if (todo.completed === true) {
         todoDiv.classList.add('completed');
+        checkbox.checked = true;
     }
     todoDiv.addEventListener('click', revealDetails); 
+    checkbox.addEventListener('click', (e)=> {
+        todo.toggleTodoComplete();
+        const projTitle = e.target.parentElement.parentElement.previousSibling.firstChild.innerText;
+        refreshTodoList(gyh.projects[projTitle]);
+        e.stopPropagation();
+    })
     return todoDiv;
 }
 
 export function createTodoDivDetailed(todo){
     const todoDiv = createEle('div', 'class', 'todoDivDetailed');
     todoDiv.classList.add('hidden');
+    const checkbox = createEle('input','type','checkbox');
+    checkbox.classList.add('checkbox');
+    
+    todoDiv.appendChild(checkbox);
     
     // initialize minimize button
     const minimizeBtn = createEle('button', 'type', 'button');
@@ -103,6 +120,7 @@ export function createTodoDivDetailed(todo){
         // add completed class if completed
         if (todo.completed === true) {
             content.classList.add('completed');
+            checkbox.checked = true;
         }
 
         // check if Date object, we just want to concatenated date string
@@ -256,6 +274,17 @@ export function createTodoDivDetailed(todo){
         todoDiv.classList.add('lowPriority');
     }
 
+    // eventlistener for checkbox
+    checkbox.addEventListener('click', (e)=> {
+        todo.toggleTodoComplete();
+        const todoDivDetailed = e.target.parentElement;
+        const newTodoDivDetailed = createTodoDivDetailed(todo);
+        newTodoDivDetailed.classList.remove('hidden');
+        todoDivDetailed.parentElement.insertBefore(newTodoDivDetailed, todoDivDetailed);
+        todoDivDetailed.remove()
+    })
+
+    // eventlistener for minimize button
     minimizeBtn.addEventListener('click', hideDetails);
     return todoDiv
 }
