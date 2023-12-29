@@ -40,7 +40,7 @@ export default function loadHome() {
     headerRight.appendChild(legendContainer);
     [legendText, highPriorityLegend, mediumPriorityLegend, lowPriorityLegend].forEach(div => legendContainer.appendChild(div));
 
-    // Quick View
+    // Quick View row 1
     const quickViewContainer = createEle('div', 'id', 'quickViewContainer');
     const quickViewText = createEle('div', 'id', 'quickViewText');
     quickViewText.innerText = 'Quick View: '
@@ -56,6 +56,21 @@ export default function loadHome() {
     
     headerRight.appendChild(quickViewContainer);
     [quickViewText, thisWeekQuickViewBtn, highPriorityQuickViewBtn, expiredQuickViewBtn].forEach(div => quickViewContainer.appendChild(div));
+
+    // Quick View row 2
+    const quickViewContainer2 = createEle('div', 'id', 'quickViewContainer2');
+    const fiveMinQuickViewBtn = createEle('button', 'id', 'fiveMinQuickViewBtn');
+    fiveMinQuickViewBtn.setAttribute('type', 'button');
+    fiveMinQuickViewBtn.innerText = '< 5 min'
+    const fiveToThirtyMinQuickViewBtn = createEle('button', 'id', 'fiveToThirtyMinQuickViewBtn');
+    fiveToThirtyMinQuickViewBtn.setAttribute('type', 'button');
+    fiveToThirtyMinQuickViewBtn.innerText = '5 < duration < 30'
+    const thirtyToSixtyMinQuickViewBtn = createEle('button', 'id', 'thirtyToSixtyMinQuickViewBtn');
+    thirtyToSixtyMinQuickViewBtn.setAttribute('type', 'button');
+    thirtyToSixtyMinQuickViewBtn.innerText = '30 < duration < 60'
+    
+    headerRight.appendChild(quickViewContainer2);
+    [fiveMinQuickViewBtn, fiveToThirtyMinQuickViewBtn, thirtyToSixtyMinQuickViewBtn].forEach(div => quickViewContainer2.appendChild(div));
 
     //create sidebar
     const sidebar = createEle('div', 'id', 'sidebar');
