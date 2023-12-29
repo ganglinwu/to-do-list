@@ -19,6 +19,7 @@ export function createTodoDivShort(todo) {
 
     dueDateDiv.innerText = todo.dueDate.toLocaleDateString(); 
     dueDateIconWrapper.appendChild(dueDateDiv);
+    
     // add class according to priority
     if (todo.priority === 'High') {
         todoDiv.classList.add('highPriority');
@@ -26,6 +27,11 @@ export function createTodoDivShort(todo) {
         todoDiv.classList.add('mediumPriority');
    } else if (todo.priority === 'Low'){
         todoDiv.classList.add('lowPriority');
+    }
+
+    // if todo is completed add class to strikethrough text
+    if (todo.completed === true) {
+        todoDiv.classList.add('completed');
     }
     todoDiv.addEventListener('click', revealDetails); 
     return todoDiv;
@@ -93,6 +99,12 @@ export function createTodoDivDetailed(todo){
         label.innerText = labelName;
         const content = createEle('div', 'class', 'content');
         content.setAttribute('contenteditable', 'false');
+
+        // add completed class if completed
+        if (todo.completed === true) {
+            content.classList.add('completed');
+        }
+
         // check if Date object, we just want to concatenated date string
         if (todo[camelCaseName] instanceof Date) {
             content.innerText = todo[camelCaseName].toLocaleDateString();
@@ -243,6 +255,7 @@ export function createTodoDivDetailed(todo){
    } else if (todo.priority === 'Low'){
         todoDiv.classList.add('lowPriority');
     }
+
     minimizeBtn.addEventListener('click', hideDetails);
     return todoDiv
 }
