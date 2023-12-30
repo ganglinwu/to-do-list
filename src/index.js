@@ -49,8 +49,8 @@ const currentMonth = dateToday.getMonth();
 const currentYear = dateToday.getFullYear();
 
 //                                      constructor(name, description, dueDate, duration, completed, priority)
-gyh.projects['sample project'].todoArray.push(new Todo('print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 2, false, 'High'));
-gyh.projects['sample project'].todoArray.push(new Todo('water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'Low'));
+gyh.projects['sample project'].todoArray.push(new Todo('sample project', 'print pdf', 'for mum\'s visa application', new Date(currentYear, currentMonth+1, currentDay), 2, false, 'High'));
+gyh.projects['sample project'].todoArray.push(new Todo('sample project', 'water plants', 'green bean plant', new Date(currentYear, currentMonth, currentDay), 1, false, 'Low'));
 
 
 /* ---------- END OF TEST code to manually add todos ----------  */
@@ -122,7 +122,7 @@ export function removeAllChildNodes(parent) {
 }
 
 // helper function to check if project has already been rendered in content area
-function isProjRendered(projTitle) {
+export function isProjRendered(projTitle) {
     const renderedProjTitleDivNodeList = document.querySelectorAll('.projTitleDiv');
     const renderedProjTitles = [];
     Array.from(renderedProjTitleDivNodeList).forEach((div)=> renderedProjTitles.push(div.innerText))

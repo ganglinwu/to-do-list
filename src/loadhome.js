@@ -1,11 +1,12 @@
 import createEle from './createEle.js';
-import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
+import {gyh, loadSidebarProj, removeAllChildNodes, isProjRendered } from './index.js';
 
 import Project from './projects.js';
 import Todo from './todo.js';
 
 import logo from './img/logo/png/logo-no-background.png';
 import addProjIcon from './img/add-task-icon.png'; 
+import loadTodo from './loadtodo.js';
 // add task icon by icons8
 
 export default function loadHome() {
@@ -56,7 +57,17 @@ export default function loadHome() {
     expiredQuickViewBtn.innerText = 'Expired'
     
     headerRight.appendChild(quickViewContainer);
-    [quickViewText, thisWeekQuickViewBtn, highPriorityQuickViewBtn, expiredQuickViewBtn].forEach(div => quickViewContainer.appendChild(div));
+    [quickViewText, thisWeekQuickViewBtn, highPriorityQuickViewBtn, expiredQuickViewBtn].forEach(div => {
+        quickViewContainer.appendChild(div);
+        const projTitle = div.innerText;
+        if (projTitle === 'Quick View: ') {
+            return;
+        } else {
+            div.addEventListener('click', (e)=> {
+                isProjRendered(projTitle) ? e.preventDefault() : loadTodo(e);
+            }) ;
+        }
+    });
 
     // Quick View row 2
     const quickViewContainer2 = createEle('div', 'id', 'quickViewContainer2');
@@ -71,7 +82,13 @@ export default function loadHome() {
     thirtyToSixtyMinQuickViewBtn.innerText = '30 < duration < 60'
     
     headerRight.appendChild(quickViewContainer2);
-    [fiveMinQuickViewBtn, fiveToThirtyMinQuickViewBtn, thirtyToSixtyMinQuickViewBtn].forEach(div => quickViewContainer2.appendChild(div));
+    [fiveMinQuickViewBtn, fiveToThirtyMinQuickViewBtn, thirtyToSixtyMinQuickViewBtn].forEach(div => {
+        quickViewContainer2.appendChild(div);
+        div.addEventListener('click', (e)=> {
+            const projTitle = div.innerText;
+            isProjRendered(projTitle) ? e.preventDefault() : loadTodo(e);
+        });
+    });
 
     //create sidebar
     const sidebar = createEle('div', 'id', 'sidebar');

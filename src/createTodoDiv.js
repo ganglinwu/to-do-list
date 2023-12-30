@@ -1,7 +1,7 @@
 import createEle from './createEle.js';
 import { revealDetails, hideDetails } from './revealdetails.js';
 import { gyh } from './index.js';
-import { refreshTodoList } from './loadtodo.js';
+import { refreshTodoList, addQuickViewTodos } from './loadtodo.js';
 
 import editIconSrc from './img/icons8-edit-26.png'
 
@@ -43,8 +43,13 @@ export function createTodoDivShort(todo) {
     todoDiv.addEventListener('click', revealDetails); 
     checkbox.addEventListener('click', (e)=> {
         todo.toggleTodoComplete();
-        const projTitle = e.target.parentElement.parentElement.previousSibling.firstChild.innerText;
-        refreshTodoList(gyh.projects[projTitle]);
+        const projTitle = todo.projectTitle;
+        const titleDivOfCurrentListofTodos = e.target.parentElement.parentElement.previousSibling.firstChild;
+        if (titleDivOfCurrentListofTodos.innerText === projTitle) {
+            refreshTodoList(gyh.projects[projTitle]);
+        } else {
+            addQuickViewTodos(titleDivOfCurrentListofTodos);
+        }
         e.stopPropagation();
     })
     return todoDiv;
@@ -279,6 +284,14 @@ export function createTodoDivDetailed(todo){
         const newTodoDivDetailed = createTodoDivDetailed(todo);
         newTodoDivDetailed.classList.remove('hidden');
         todoDivDetailed.parentElement.insertBefore(newTodoDivDetailed, todoDivDetailed);
+        
+        const projTitle = todo.projectTitle;
+        const titleDivOfCurrentListOfTodos = e.target.parentElement.parentElement.previousSibling.firstChild;
+        if (titleDivOfCurrentListOfTodos.innerText === projTitle) {
+            refreshTodoList(gyh.projects[projTitle]);
+        } else {
+            addQuickViewTodos(titleDivOfCurrentListOfTodos);
+        }
         todoDivDetailed.remove()
     })
 

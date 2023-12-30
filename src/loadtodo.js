@@ -1,4 +1,4 @@
-import {gyh, loadSidebarProj, removeAllChildNodes} from './index.js';
+import {gyh, loadSidebarProj, removeAllChildNodes, isProjRendered} from './index.js';
 import createEle from './createEle.js'
 import { createTodoDivShort, createTodoDivDetailed } from './createTodoDiv.js';
 import { addNewProject } from './loadhome.js';
@@ -11,7 +11,7 @@ export default function loadTodo(clickEvent) {
     const projTitle = clickEvent.target.innerText;
     const projTitleNoWhiteSpace = projTitle.replace(/\s/g, "") + 'PROJECT'; // we need to give this todoList div a specific id, to prevent namespace clash, salt with 'PROJECT'
     todoList.setAttribute('id', projTitleNoWhiteSpace);  // this will allow us to refresh the todolist after adding todo items
-    const projTitleWrapper = createEle('div', 'class', 'projTitleWrapper'); // div to wrap title and close todolist div
+    const projTitleWrapper = createEle('div', 'class', 'projTitleWrapper'); // div to wrap title and close todolist div btn
     const projTitleDiv = createEle('div', 'class', 'projTitleDiv'); // div to contain title of Project
     
     // closeTodoList button
@@ -20,61 +20,6 @@ export default function loadTodo(clickEvent) {
     const closeTodoListText = createEle('p', 'class', 'closeTodoListText');
     closeTodoListText.innerText = 'x';
     closeTodoList.appendChild(closeTodoListText);
-
-    const todoContainer = createEle('div', 'class', 'todoContainer'); // div to containerize all the todo items under Project
-
-    projTitleDiv.innerText = projTitle;
-    projTitleWrapper.appendChild(projTitleDiv);
-    projTitleWrapper.appendChild(closeTodoList);
-    todoList.appendChild(projTitleWrapper);
-    todoList.appendChild(todoContainer);
-    content.appendChild(todoList)
-
-    // refresh todolist
-    if (Object.keys(gyh.projects).length) { // first check if there are projects
-        refreshTodoList(gyh.projects[projTitle]);
-    } 
-
-    // wrapper for input and submit btn
-    const inputWrapper = createEle('div', 'class', 'inputWrapper');
-
-    
-    // add input to add todo
-    const addTodoInput = createEle('input', 'class', 'addTodoInput');
-    addTodoInput.setAttribute('placeholder', '+ e.g. Water plants');
-
-    // add todo btn
-    const submitTodoBtn = createEle('button', 'class', 'submitTodoBtn');
-    submitTodoBtn.setAttribute('type', 'button');
-    submitTodoBtn.innerText = '+';
-
-    // eventListener for submit button
-    submitTodoBtn.addEventListener('click', (e)=> {
-        const todoName = addTodoInput.value;
-        if (!todoName) {
-            e.preventDefault();
-        } else {
-            addNewTodoForm(todoName, gyh.projects[projTitle]);
-
-            // clear input field to prevent recursive error
-            addTodoInput.value = '';
-        }
-    })
-
-    // instead of button to "submit" we also listen for enter keyup
-    addTodoInput.addEventListener('keyup', (e)=> {
-        if (e.key === 'Enter') {
-            const todoName = addTodoInput.value;
-            if (!todoName) {
-                e.preventDefault();
-            } else {
-                addNewTodoForm(todoName, gyh.projects[projTitle]);
-
-                // clear input field to prevent recursive error
-                addTodoInput.value = '';
-            }
-        }
-    })
 
     // eventListener for closeTodoList button
     closeTodoList.addEventListener('click', (e)=> {
@@ -87,9 +32,76 @@ export default function loadTodo(clickEvent) {
         projTodoList.remove();
     })
 
-    inputWrapper.appendChild(addTodoInput);
-    inputWrapper.appendChild(submitTodoBtn);
-    todoList.appendChild(inputWrapper);
+    const todoContainer = createEle('div', 'class', 'todoContainer'); // div to containerize all the todo items under Project
+
+    projTitleDiv.innerText = projTitle;
+    projTitleWrapper.appendChild(projTitleDiv);
+    projTitleWrapper.appendChild(closeTodoList);
+    todoList.appendChild(projTitleWrapper);
+    todoList.appendChild(todoContainer);
+    content.appendChild(todoList)
+
+    const quickViewContainer1 = document.getElementById('quickViewContainer');
+    const quickViewContainer2 = document.getElementById('quickViewContainer2');
+    const projListDiv = document.getElementById('projListDiv');
+
+    if (quickViewContainer1.contains(clickEvent.target) || quickViewContainer2.contains(clickEvent.target)) {
+
+        // populate content with corresponding todos 
+        addQuickViewTodos(clickEvent.target); 
+
+    } else if (projListDiv.contains(clickEvent.target)) {
+        // refresh todolist
+        if (Object.keys(gyh.projects).length) { // first check if there are projects
+            refreshTodoList(gyh.projects[projTitle]);
+        } 
+
+        // wrapper for input and submit btn
+        const inputWrapper = createEle('div', 'class', 'inputWrapper');
+
+        
+        // add input to add todo
+        const addTodoInput = createEle('input', 'class', 'addTodoInput');
+        addTodoInput.setAttribute('placeholder', '+ e.g. Water plants');
+
+        // add todo btn
+        const submitTodoBtn = createEle('button', 'class', 'submitTodoBtn');
+        submitTodoBtn.setAttribute('type', 'button');
+        submitTodoBtn.innerText = '+';
+
+        // eventListener for submit button
+        submitTodoBtn.addEventListener('click', (e)=> {
+            const todoName = addTodoInput.value;
+            if (!todoName) {
+                e.preventDefault();
+            } else {
+                addNewTodoForm(todoName, gyh.projects[projTitle]);
+
+                // clear input field to prevent recursive error
+                addTodoInput.value = '';
+            }
+        })
+
+        // instead of button to "submit" we also listen for enter keyup
+        addTodoInput.addEventListener('keyup', (e)=> {
+            if (e.key === 'Enter') {
+                const todoName = addTodoInput.value;
+                if (!todoName) {
+                    e.preventDefault();
+                } else {
+                    addNewTodoForm(todoName, gyh.projects[projTitle]);
+
+                    // clear input field to prevent recursive error
+                    addTodoInput.value = '';
+                }
+            }
+        })
+
+        inputWrapper.appendChild(addTodoInput);
+        inputWrapper.appendChild(submitTodoBtn);
+        todoList.appendChild(inputWrapper);
+        }
+
 };
 
 // since the form is created and should be GC once it is done
@@ -224,6 +236,7 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     addTodoBtn.addEventListener('click', (e) => {
         if (e.target.form.checkValidity()) {
             const newTodo = new Todo(
+                ProjectObject.title,
                 nameInput.value, 
                 descriptionInput.value, 
                 new Date(dueDateInput.value), 
@@ -247,6 +260,7 @@ const addNewTodoForm = (function (todoName, ProjectObject) {
     todoFormContainer.addEventListener('keyup', (e)=> {
         if (e.key === 'Enter') {
             const newTodo = new Todo(
+                ProjectObject.title,
                 nameInput.value, 
                 descriptionInput.value, 
                 new Date(dueDateInput.value), 
@@ -299,6 +313,78 @@ export function refreshTodoList(ProjectObj) {
             addNewTodoForm('', projObj);
         });
         projDiv.children[1].appendChild(todoDiv); 
+    }
+}
+
+export function addQuickViewTodos(node) { //node is e.target, where e is the clickevent
+    const projTitleNoWhiteSpaceSalted = node.innerText.replace(/\s/g, "") + 'PROJECT';
+    const todoContainer = document.getElementById(projTitleNoWhiteSpaceSalted).firstChild.nextSibling;
+    removeAllChildNodes(todoContainer);
+    
+    // initialize date to calculate this week or expired todos
+    const today = new Date();
+
+    // initialize array to store todos
+    const todoArr = [];
+
+    // check which quickview button is clicked
+    if (node.innerText === 'This week') {
+        for (const [key, value] of Object.entries(gyh.projects)) { // iterate over all projects
+            for (const todo of gyh.projects[key].todoArray) { // iterate over all todos
+                const timeDiffMilliSeconds = todo.dueDate - today;
+                if (timeDiffMilliSeconds > 0 && timeDiffMilliSeconds < 604800000) { // 1 day = 604 800 seconds
+                    todoArr.push(todo);
+                }
+            }
+        }
+    } else if (node.innerText === 'Expired') {
+        for (const [key, value] of Object.entries(gyh.projects)) { // iterate over all projects
+            for (const todo of gyh.projects[key].todoArray) { // iterate over all todos
+                const timeDiffMilliSeconds = todo.dueDate - today;
+                if (timeDiffMilliSeconds < 0) {
+                    todoArr.push(todo);
+                }
+            }
+        }
+    } else if (node.innerText === 'High Priority') {
+        for (const [key, value] of Object.entries(gyh.projects)) {
+            for (const todo of gyh.projects[key].todoArray) {
+                if (todo.priority === 'High') {
+                    todoArr.push(todo);
+                }
+            }
+        }
+    } else if (node.innerText === '< 5 min') {
+        for (const [key, value] of Object.entries(gyh.projects)) {
+            for (const todo of gyh.projects[key].todoArray) {
+                if (todo.duration <= 5 && todo.duration> 0) {
+                    todoArr.push(todo);
+                }
+            }
+        }
+    } else if (node.innerText === '5 < duration < 30') {
+        for (const [key, value] of Object.entries(gyh.projects)) {
+            for (const todo of gyh.projects[key].todoArray) {
+                if (todo.duration <= 30 && todo.duration> 5) {
+                    todoArr.push(todo);
+                }
+            }
+        }
+    } else if (node.innerText === '30 < duration < 60') {
+        for (const [key, value] of Object.entries(gyh.projects)) {
+            for (const todo of gyh.projects[key].todoArray) {
+                if (todo.duration <= 60 && todo.duration> 30) {
+                    todoArr.push(todo);
+                }
+            }
+        }
+    }
+
+    if (todoArr.length) { 
+        todoArr.forEach(TodoObject => {
+            todoContainer.appendChild(createTodoDivShort(TodoObject));
+            todoContainer.appendChild(createTodoDivDetailed(TodoObject));
+        });
     }
 }
 
