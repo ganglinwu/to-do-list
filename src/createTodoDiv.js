@@ -249,7 +249,7 @@ export function createTodoDivDetailed(todo){
             if (todoKey.innerText === 'Due Date') {
                 todoValue.innerText = gyh.projects[projTitle].todoArray[indexNum]['dueDate'].toLocaleDateString();
                 ;
-            } else if (todoKey.innerText = 'Priority') {
+            } else if (todoKey.innerText === 'Priority') {
                 const selector = document.getElementById('editPriority');
                 selector.remove()
                 todoValue.innerText = gyh.projects[projTitle].todoArray[indexNum][todoObjKeyCamelCase];
