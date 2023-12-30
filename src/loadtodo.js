@@ -332,7 +332,7 @@ export function addQuickViewTodos(node) { //node is e.target, where e is the cli
         for (const [key, value] of Object.entries(gyh.projects)) { // iterate over all projects
             for (const todo of gyh.projects[key].todoArray) { // iterate over all todos
                 const timeDiffMilliSeconds = todo.dueDate - today;
-                if (timeDiffMilliSeconds > 0 && timeDiffMilliSeconds < 604800000) { // 1 day = 604 800 seconds
+                if (timeDiffMilliSeconds > 0 && timeDiffMilliSeconds < 604800000) { // 7 day = 604 800 seconds
                     todoArr.push(todo);
                 }
             }
@@ -341,7 +341,7 @@ export function addQuickViewTodos(node) { //node is e.target, where e is the cli
         for (const [key, value] of Object.entries(gyh.projects)) { // iterate over all projects
             for (const todo of gyh.projects[key].todoArray) { // iterate over all todos
                 const timeDiffMilliSeconds = todo.dueDate - today;
-                if (timeDiffMilliSeconds < 0) {
+                if (timeDiffMilliSeconds <= -86400000) { // 1 day = 86 400 seconds
                     todoArr.push(todo);
                 }
             }
