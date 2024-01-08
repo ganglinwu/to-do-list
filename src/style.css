@@ -14,13 +14,13 @@
     --todoDiv-width-percent: 190%;
 
     font-family: 'Antic', monospace;
-} 
+}
 
 html {
     font-size: 24px;
 }
 
-#mainContainerDiv /* contains header, sidebar and content*/{
+#mainContainerDiv /* contains header, sidebar and content*/ {
     display: grid;
 
     margin-left: 0.5rem;
@@ -30,12 +30,11 @@ html {
     grid-auto-flow: column;
 }
 
-
 /* --------------------------------------------------*/
 /* ----------------- CSS for HEADER -----------------*/
 /* --------------------------------------------------*/
 
-#header /*a grid member of mainContainerDiv*/{
+#header /*a grid member of mainContainerDiv*/ {
     grid-area: 1 / 1 / 2 / -1;
     margin: 0.6rem;
 
@@ -46,7 +45,7 @@ html {
 #headerLeft {
     grid-area: 1 / 1 / 2 / 2;
 
-    display:grid;
+    display: grid;
     align-items: center;
 }
 /* TODO no fixed width! */
@@ -73,7 +72,7 @@ html {
     cursor: pointer;
 
     border-radius: 25px;
-    
+
     background-color: white;
 
     font-size: 1rem;
@@ -117,7 +116,7 @@ html {
 #fiveMinQuickViewBtn:hover,
 #fiveToThirtyMinQuickViewBtn:hover,
 #thirtyToSixtyMinQuickViewBtn:hover {
-    color:white;
+    color: white;
     background-color: black;
 }
 
@@ -134,11 +133,10 @@ html {
     display: flex;
     justify-content: space-between;
     align-items: center;
-
 }
 
 #highPriorityLegend,
-#mediumPriorityLegend, 
+#mediumPriorityLegend,
 #lowPriorityLegend {
     border: 1px solid black;
     border-radius: 5px;
@@ -154,19 +152,34 @@ html {
 }
 
 #highPriorityLegend {
-    background: linear-gradient(to left, #fff var(--white-percent), red var(--color-percent)) right;
+    background: linear-gradient(
+            to left,
+            #fff var(--white-percent),
+            red var(--color-percent)
+        )
+        right;
     background-size: var(--todoDiv-width-percent) 100%;
     background-color: red;
 }
 
 #mediumPriorityLegend {
-    background: linear-gradient(to left, #fff var(--white-percent), yellow var(--color-percent)) right;
+    background: linear-gradient(
+            to left,
+            #fff var(--white-percent),
+            yellow var(--color-percent)
+        )
+        right;
     background-size: var(--todoDiv-width-percent) 100%;
     background-color: yellow;
 }
 
 #lowPriorityLegend {
-    background: linear-gradient(to left, #fff var(--white-percent), green var(--color-percent)) right;
+    background: linear-gradient(
+            to left,
+            #fff var(--white-percent),
+            green var(--color-percent)
+        )
+        right;
     background-size: var(--todoDiv-width-percent) 100%;
     background-color: green;
 }
@@ -175,7 +188,7 @@ html {
 /* ----------------- CSS for SIDEBAR -----------------*/
 /* ---------------------------------------------------*/
 
-#sidebar /* a grid member of mainContainerDiv*/{
+#sidebar /* a grid member of mainContainerDiv*/ {
     grid-area: 2 / 1 / -1 / 2;
 
     margin: 0 0.5rem;
@@ -201,7 +214,7 @@ html {
 
 .projDiv {
     margin-top: 0.3rem;
-    display:flex;
+    display: flex;
     transition: all 0.5s ease;
     background: linear-gradient(to right, #fff 50%, red 50%) left;
     background-size: 200%;
@@ -215,7 +228,12 @@ html {
     flex: 1;
     transition: all 0.5s ease-in-out;
 
-    background: linear-gradient(to left, rgba(255,255,255,0) 50%, var(--main-blue) 50%) right;
+    background: linear-gradient(
+            to left,
+            rgba(255, 255, 255, 0) 50%,
+            var(--main-blue) 50%
+        )
+        right;
     background-size: 200%;
 }
 
@@ -231,8 +249,7 @@ html {
 
 #addProjIcon,
 #addProjText,
-.projDiv
-{
+.projDiv {
     cursor: pointer;
 }
 
@@ -250,11 +267,11 @@ html {
     grid-auto-columns: 300px;
 }
 
-.todoList /* container for proj and todos under it */{
+.todoList /* container for proj and todos under it */ {
     border: 1px solid black;
     border-radius: 15px;
 
-    box-shadow: 2px 2px grey; 
+    box-shadow: 2px 2px grey;
 
     padding: 0.3rem 0.6rem;
 
@@ -264,13 +281,13 @@ html {
     min-height: 250px;
 }
 
-.projTitleWrapper /* wraps projTitleDiv and closeTodoList */{
+.projTitleWrapper /* wraps projTitleDiv and closeTodoList */ {
     display: flex;
     align-items: center;
     margin-bottom: 0.3rem;
 }
 
-.projTitleDiv /* contains project title */{
+.projTitleDiv /* contains project title */ {
     font-weight: 900;
     color: var(--main-blue);
 
@@ -319,7 +336,7 @@ html {
     position: relative;
 
     margin-bottom: 0.3rem;
-    border: 1px solid grey; 
+    border: 1px solid grey;
     border-radius: 5px;
 
     padding: 0.4rem 0.3rem;
@@ -327,8 +344,8 @@ html {
     font-size: 0.8rem;
 
     transition: all 0.3s ease;
-    background-color: rgba(255,255,255,0);
-    z-index:2;
+    background-color: rgba(255, 255, 255, 0);
+    z-index: 2;
 }
 
 .todoDiv {
@@ -350,7 +367,12 @@ html {
 }
 
 .highPriority {
-    background: linear-gradient(to left, #fff var(--white-percent), red var(--color-percent)) right;
+    background: linear-gradient(
+            to left,
+            #fff var(--white-percent),
+            red var(--color-percent)
+        )
+        right;
     background-size: var(--todoDiv-width-percent) 100%;
     background-color: red;
 
@@ -360,9 +382,9 @@ html {
 .completed {
     text-decoration: line-through;
 }
-    /* -----------------------------------------------------------*/
-    /* ----------------- CSS for todoDiv details -----------------*/
-    /* -----------------------------------------------------------*/
+/* -----------------------------------------------------------*/
+/* ----------------- CSS for todoDiv details -----------------*/
+/* -----------------------------------------------------------*/
 .minimizeBtn {
     background-color: #fcbc42;
     width: 16px;
@@ -371,7 +393,7 @@ html {
     border-radius: 8px;
 
     position: absolute;
-    top:0.4rem;
+    top: 0.4rem;
     right: 0.4rem;
 }
 
@@ -391,8 +413,8 @@ html {
 }
 
 .dueDateIconWrapper {
-    margin-left:auto;
-    display:flex;
+    margin-left: auto;
+    display: flex;
 }
 .dueDateDiv {
     margin-left: auto;
@@ -407,7 +429,7 @@ html {
 .todoDivDetailedCompleted,
 .todoDivDetailedPriority,
 .content {
-    display:flex;
+    display: flex;
     font-size: 0.8rem;
 
     position: relative;
@@ -428,13 +450,12 @@ html {
     top: 0.5rem;
 }
 
-
 .up8px {
     transform: translateY(-8px);
 }
 
 .editIcon {
-    margin-left:auto;
+    margin-left: auto;
     margin-top: 0.6rem;
 }
 
@@ -444,7 +465,7 @@ html {
     border-radius: 5px;
     font-size: 0.5rem;
     height: 0.7rem;
-    margin-left:auto;
+    margin-left: auto;
     margin-top: 0.6rem;
 }
 
@@ -454,19 +475,23 @@ html {
     border-radius: 5px;
     font-size: 0.5rem;
     height: 0.7rem;
-    margin-left:auto;
+    margin-left: auto;
     margin-top: 0.6rem;
 }
-    /* ------------------------------------------------------------*/
-    /* ---------------END CSS for todoDiv details -----------------*/
-    /* ------------------------------------------------------------*/
+/* ------------------------------------------------------------*/
+/* ---------------END CSS for todoDiv details -----------------*/
+/* ------------------------------------------------------------*/
 .highPriority:hover {
     background-position: left;
 }
 
-
 .mediumPriority {
-    background: linear-gradient(to left, #fff var(--white-percent), yellow var(--color-percent)) right;
+    background: linear-gradient(
+            to left,
+            #fff var(--white-percent),
+            yellow var(--color-percent)
+        )
+        right;
     background-size: var(--todoDiv-width-percent) 100%;
     background-color: yellow;
 
@@ -478,7 +503,12 @@ html {
 }
 
 .lowPriority {
-    background: linear-gradient(to left, #fff var(--white-percent), green var(--color-percent)) right;
+    background: linear-gradient(
+            to left,
+            #fff var(--white-percent),
+            green var(--color-percent)
+        )
+        right;
     background-size: var(--todoDiv-width-percent) 100%;
     background-color: green;
 
@@ -493,7 +523,7 @@ html {
     display: flex;
 }
 
-.addTodoInput{
+.addTodoInput {
     color: black;
 
     margin-left: 0.2rem;
@@ -538,7 +568,7 @@ html {
 /* ----------------------------------------------------*/
 
 .todoFormContainer {
-    z-index: 2;    
+    z-index: 2;
     backdrop-filter: blur(2px);
 
     display: flex;
@@ -584,10 +614,10 @@ html {
     list-style-type: none;
 }
 
-    /* -------------------------------------------------------*/
-    /* ----------------- CSS for form inputs -----------------*/
-    /* -------------------------------------------------------*/
-.todoFormUl li{
+/* -------------------------------------------------------*/
+/* ----------------- CSS for form inputs -----------------*/
+/* -------------------------------------------------------*/
+.todoFormUl li {
     position: relative;
 
     margin-bottom: 0.9rem;
@@ -601,7 +631,7 @@ html {
 
     font-size: 0.7rem;
 
-    background-color: rgba(0,0,0,0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .todoFormUl li:not(.dueDateLi, .completedLi, .priorityLi) label {
@@ -626,39 +656,38 @@ html {
 }
 
 .nameLi input:focus ~ label,
-.nameLi input:valid ~ label{
+.nameLi input:valid ~ label {
     transform: translateY(-0.6rem);
     color: var(--main-blue);
     font-size: 0.5rem;
 }
 
 .descriptionLi input:focus ~ label,
-.descriptionLi input:user-valid ~ label{
+.descriptionLi input:user-valid ~ label {
     transform: translateY(-0.6rem);
     color: var(--main-blue);
     font-size: 0.5rem;
 }
 
-.dueDateLi label{
+.dueDateLi label {
     position: absolute;
 
     font-size: 0.5rem;
 
     bottom: 1rem;
-    left:0;
+    left: 0;
     color: var(--main-blue);
 }
 
 .durationLi input:focus ~ label,
-.durationLi input:valid ~ label{
+.durationLi input:valid ~ label {
     transform: translateY(-0.6rem);
     color: var(--main-blue);
     font-size: 0.5rem;
 }
 
 .completedLi,
-.priorityLi 
-{
+.priorityLi {
     position: relative;
 }
 
@@ -667,24 +696,20 @@ html {
 }
 
 .completedLi label,
-.priorityLi label 
-{
+.priorityLi label {
     margin-bottom: 0.2rem;
     margin-right: 0.2rem;
 }
 
 .completedLi input,
-.priorityLi select 
-{
+.priorityLi select {
     position: absolute;
     top: 0.35rem;
 }
 
-.todoFormUl li input:focus
-{
-    border-bottom: 2px solid var(--main-blue)
+.todoFormUl li input:focus {
+    border-bottom: 2px solid var(--main-blue);
 }
-
 
 .addTodoBtn {
     background-color: var(--main-blue);
@@ -692,13 +717,13 @@ html {
 
     width: 4rem;
     padding: 0.3rem 0.5rem;
-    
+
     border: none;
 
     border-radius: 5px;
 
     cursor: pointer;
 }
-    /* -------------------------------------------------------*/
-    /* --------------END css for form inputs -----------------*/
-    /* -------------------------------------------------------*/
+/* -------------------------------------------------------*/
+/* --------------END css for form inputs -----------------*/
+/* -------------------------------------------------------*/

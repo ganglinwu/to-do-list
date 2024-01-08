@@ -1,3 +1,5 @@
+import isEqual from 'lodash.isequal';
+
 export default class Project {
     constructor(title, description) {
         this.title = title;
@@ -9,9 +11,9 @@ export default class Project {
     // becuase it is simple a push into this.todoArray
     // you will have to manually call isTodoDuplicate to check for dupes
     // before pushing into Array
-    
-    removeTodo(todoObj) { 
-        if (this.todoArray.some(todo => _.isEqual(todo, todoObj))) { 
+
+    removeTodo(todoObj) {
+        if (this.todoArray.some((todo) => isEqual(todo, todoObj))) {
             const index = this.todoArray.indexOf(todoObj);
             this.todoArray.splice(index, 1);
         }
@@ -24,16 +26,16 @@ export default class Project {
         } else return false;
     }
 
-    // helper function to match todoObj by name 
+    // helper function to match todoObj by name
     _isNameSame(todoObj) {
-        if (this.todoArray.some(todo => todo.name === todoObj.name)) {
+        if (this.todoArray.some((todo) => todo.name === todoObj.name)) {
             return true;
         } else return false;
     }
 
     // helper function to match todoObj by dueDate
     _isDueDateSame(todoObj) {
-        if (this.todoArray.some(todo => todo.dueDate === todoObj.dueDate)) {
+        if (this.todoArray.some((todo) => todo.dueDate === todoObj.dueDate)) {
             return true;
         } else return false;
     }
