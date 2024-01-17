@@ -22,7 +22,7 @@ import trashIconSrc from './img/icons8-trash-24.png'; //<a target="_blank" href=
 // i.e. gyh >> Project >> ToDo
 // personally i think a different name would be less confusing thus gyh
 
-export const gyh = {
+export let gyh = {
     projects: {
         'sample project': new Project(
             'sample project',
@@ -46,8 +46,9 @@ export const gyh = {
 // check if localStorage is available
 if (storageAvailable('localStorage')) {
     // check if gyh is already written to localStorage
-    if (localStorage.getItem(gyh) !== null) {
-        gyh.projects = JSON.parse(localStorage.getItem('gyh.projects'));
+    if (localStorage.getItem('gyh') !== null) {
+        let gyhFromLocalStorage = JSON.parse(localStorage.getItem('gyh'));
+        gyh.projects = gyhFromLocalStorage.projects;
     } else {
         // if gyh is not in locaStorage then this is likely the first visit, let's write gyh into localStorage
         // first populate with sample todos, then write into localStorage.
