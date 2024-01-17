@@ -51,14 +51,16 @@ if (storageAvailable('localStorage')) {
     } else {
         // if gyh is not in locaStorage then this is likely the first visit, let's write gyh into localStorage
         // first populate with sample todos, then write into localStorage.
-        gyh.projects['sample project'].todoArray.push(
-            generateSampleTodoArray()
-        );
+        for (const todo of generateSampleTodoArray()) {
+            gyh.projects['sample project'].todoArray.push(todo);
+        }
         localStorage.setItem('gyh', JSON.stringify(gyh));
     }
 } else {
     // if no localStorage we just populate with sample todos
-    gyh.projects['sample project'].todoArray.push(generateSampleTodoArray());
+    for (const todo of generateSampleTodoArray()) {
+        gyh.projects['sample project'].todoArray.push(todo);
+    }
 }
 // load home page
 document.body.appendChild(loadHome());
@@ -205,6 +207,13 @@ function generateSampleTodoArray() {
             'Low'
         )
     );
-    return sampleTodoArray;
+    return sampleTodoArray.values();
+}
+
+// helper function to update localStorage
+export function updateLocalStorage() {
+    if (storageAvailable('localStorage')) {
+        localStorage.setItem('gyh', JSON.stringify(gyh));
+    }
 }
 /* -------------------- END OF helper functions --------------------  */
