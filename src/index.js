@@ -140,7 +140,9 @@ export function loadSidebarProj() {
                 const sidebarProj = e.target.parentElement;
                 removeAllChildNodes(sidebarProj);
                 sidebarProj.remove();
+                delete gyh.projects[projTitle];
                 alert(`${projTitle} has been deleted!`);
+                updateLocalStorage();
             } else {
                 e.preventDefault();
                 alert('Project not deleted.');
