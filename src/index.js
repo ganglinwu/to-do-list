@@ -48,7 +48,32 @@ if (storageAvailable('localStorage')) {
     // check if gyh is already written to localStorage
     if (localStorage.getItem('gyh') !== null) {
         let gyhFromLocalStorage = JSON.parse(localStorage.getItem('gyh'));
-        gyh.projects = gyhFromLocalStorage.projects;
+        Object.values(gyhFromLocalStorage.projects).forEach((val) => {
+            gyh.projects[val.title] = new Project(val.title, val.description);
+            const todoIndice = Object.keys(
+                gyhFromLocalStorage.projects[val.title].todoArray
+            );
+            if (todoIndice.length) {
+                for (const indexNum in todoIndice) {
+                    const todo =
+                        gyhFromLocalStorage.projects[val.title].todoArray[
+                            indexNum
+                        ];
+                    const dueDateObj = new Date(todo.dueDate.slice(0, 10));
+                    gyh.projects[val.title].todoArray.push(
+                        new Todo(
+                            todo.projectTitle,
+                            todo.name,
+                            todo.description,
+                            dueDateObj,
+                            todo.duration,
+                            todo.completed,
+                            todo.priority
+                        )
+                    );
+                }
+            }
+        });
     } else {
         // if gyh is not in locaStorage then this is likely the first visit, let's write gyh into localStorage
         // first populate with sample todos, then write into localStorage.
@@ -58,11 +83,11 @@ if (storageAvailable('localStorage')) {
         localStorage.setItem('gyh', JSON.stringify(gyh));
     }
 } else {
-    // if no localStorage we just populate with sample todos
     for (const todo of generateSampleTodoArray()) {
         gyh.projects['sample project'].todoArray.push(todo);
     }
 }
+
 // load home page
 document.body.appendChild(loadHome());
 

@@ -1,6 +1,6 @@
 import createEle from './createEle.js';
 import { revealDetails, hideDetails } from './revealdetails.js';
-import { gyh } from './index.js';
+import { gyh, updateLocalStorage } from './index.js';
 import { refreshTodoList, addQuickViewTodos } from './loadtodo.js';
 
 import editIconSrc from './img/icons8-edit-26.png';
@@ -268,6 +268,7 @@ export function createTodoDivDetailed(todo) {
                 ] = todoValue.innerText;
             }
 
+            updateLocalStorage();
             editIcon.classList.toggle('hidden');
             saveEdit.classList.toggle('hidden');
             cancelEdit.classList.toggle('hidden');

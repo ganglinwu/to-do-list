@@ -4,6 +4,7 @@ import {
     loadSidebarProj,
     removeAllChildNodes,
     isProjRendered,
+    updateLocalStorage,
 } from './index.js';
 
 import Project from './projects.js';
@@ -175,6 +176,7 @@ export default function loadHome() {
                 removeAllChildNodes(projListDiv);
                 projListDiv.remove();
                 sidebar.appendChild(loadSidebarProj());
+                updateLocalStorage();
             }
         })
     );

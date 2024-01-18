@@ -1,7 +1,7 @@
-import { gyh, removeAllChildNodes } from './index.js';
+import { gyh, removeAllChildNodes, updateLocalStorage } from './index.js';
 import createEle from './createEle.js';
 import { createTodoDivShort, createTodoDivDetailed } from './createTodoDiv.js';
-
+import Project from './projects.js';
 import Todo from './todo.js';
 
 export default function loadTodo(clickEvent) {
@@ -252,6 +252,7 @@ const addNewTodoForm = function (todoName, ProjectObject) {
                 alert(
                     `Todo: ${nameInput.value} has been added to project: ${ProjectObject.title}`
                 );
+                updateLocalStorage();
                 removeAllChildNodes(todoFormContainer);
                 mainContainerDiv.removeChild(todoFormContainer);
             }
@@ -280,6 +281,7 @@ const addNewTodoForm = function (todoName, ProjectObject) {
                 alert(
                     `Todo: ${nameInput.value} has been added to project: ${ProjectObject.title}`
                 );
+                updateLocalStorage();
                 removeAllChildNodes(todoFormContainer);
                 mainContainerDiv.removeChild(todoFormContainer);
             }

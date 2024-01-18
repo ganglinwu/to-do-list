@@ -1,3 +1,5 @@
+import { updateLocalStorage } from './index.js';
+
 export default class Todo {
     constructor(
         projectTitle,
@@ -23,5 +25,6 @@ export default class Todo {
         } else {
             this.completed = true;
         }
+        updateLocalStorage();
     }
 }
