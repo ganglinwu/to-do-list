@@ -17,24 +17,40 @@ import loadTodo from './loadtodo.js';
 export default function loadHome() {
     // create main container div
     const mainContainerDiv = createEle('div', 'id', 'mainContainerDiv');
+    mainContainerDiv.classList.add('grid', 'grid-rows-1', 'gap-1');
 
     // create header
     const header = createEle('div', 'id', 'header');
+    header.classList.add('col-span-2', 'flex', 'border', 'border-blue');
+
+    // create left and right portions of header
     const headerLeft = createEle('div', 'id', 'headerLeft');
     const headerRight = createEle('div', 'id', 'headerRight');
+    headerLeft.classList.add('flex', 'w-20', 'md:w-36', 'lg:w-52', 'border');
+    headerRight.classList.add('block', 'w-full', 'border');
     header.appendChild(headerLeft);
     header.appendChild(headerRight);
 
     // create logo
     const logoElement = createEle('img', 'id', 'headerLogo');
     logoElement.src = logo;
-    logoElement.style.height = '3rem';
-    logoElement.style.width = '9rem';
+    logoElement.classList.add(
+        'p-2',
+        'w-20',
+        'md:w-36',
+        'lg:w-52',
+        'aspect-auto',
+        'mx-auto',
+        'self-center',
+        'border'
+    );
     headerLeft.appendChild(logoElement);
     mainContainerDiv.appendChild(header);
 
     // legend
     const legendContainer = createEle('div', 'id', 'legendContainer');
+    legendContainer.classList.add('flex', 'content-between', 'border');
+
     const legendText = createEle('div', 'id', 'legendText');
     legendText.innerText = 'Legend: ';
     const highPriorityLegend = createEle('div', 'id', 'highPriorityLegend');
@@ -54,6 +70,7 @@ export default function loadHome() {
 
     // Quick View row 1
     const quickViewContainer = createEle('div', 'id', 'quickViewContainer');
+    quickViewContainer.classList.add('flex', 'content-between', 'border');
     const quickViewText = createEle('div', 'id', 'quickViewText');
     quickViewText.innerText = 'Quick View: ';
     const thisWeekQuickViewBtn = createEle(
@@ -135,18 +152,22 @@ export default function loadHome() {
 
     //create sidebar
     const sidebar = createEle('div', 'id', 'sidebar');
+    sidebar.classList.add('w-12', 'md:w-28', 'lg:w-44', 'border');
 
     // add project container
     const addProjContainer = createEle('div', 'id', 'addProjContainer');
+    addProjContainer.classList.add('flex', 'justify-center');
     sidebar.appendChild(addProjContainer);
 
     // add project in sidebar
     const addProjIconElement = createEle('img', 'id', 'addProjIcon');
     addProjIconElement.src = addProjIcon;
+    addProjIconElement.classList.add('h-auto', 'aspect-square');
     addProjContainer.appendChild(addProjIconElement);
 
     // add project text
     const addProjText = createEle('span', 'id', 'addProjText');
+    addProjText.classList.add('self-center', 'pl-2');
     addProjText.innerText = 'Add Project';
     addProjContainer.appendChild(addProjText);
 

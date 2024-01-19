@@ -1,4 +1,4 @@
-import './style.css';
+import './output.css';
 
 import createEle from './createEle.js';
 import loadHome from './loadhome.js';
@@ -98,6 +98,7 @@ export function loadSidebarProj() {
     const projListDiv = createEle('div', 'id', 'projListDiv');
     Object.keys(gyh.projects).forEach((key) => {
         const projDiv = createEle('div', 'class', 'projDiv');
+        projDiv.classList.add('flex', 'justify-start');
         const projTitleSidebarDiv = createEle(
             'div',
             'class',
