@@ -98,7 +98,12 @@ export function loadSidebarProj() {
     const projListDiv = createEle('div', 'id', 'projListDiv');
     Object.keys(gyh.projects).forEach((key) => {
         const projDiv = createEle('div', 'class', 'projDiv');
-        projDiv.classList.add('flex', 'justify-start');
+        projDiv.classList.add(
+            'flex',
+            'justify-start',
+            'group/item',
+            'group/delete'
+        );
         const projTitleSidebarDiv = createEle(
             'div',
             'class',
@@ -106,6 +111,27 @@ export function loadSidebarProj() {
         );
         const deleteProj = createEle('img', 'class', 'deleteProj');
         deleteProj.src = trashIconSrc;
+        deleteProj.classList.add('group-hover/delete:bg-red-500');
+        const summarySpan = createEle('span', 'class', 'scale-0');
+        gyh.projects[key].todoArray.forEach((todo) => {
+            summarySpan.insertAdjacentHTML('beforeend', todo.name + '<br>');
+        });
+        summarySpan.classList.add(
+            'group-hover/item:scale-100',
+            'opacity-50',
+            'origin-left',
+            'border',
+            'absolute',
+            'self-center',
+            '-right-40',
+            'w-40',
+            'text-left',
+            'z-2',
+            'bg-primary',
+            'transition-all',
+            'ease',
+            'cursor-not-allowed'
+        );
         if (gyh.projects[key].title.length < 18) {
             projTitleSidebarDiv.innerText = gyh.projects[key].title;
         } else {
@@ -114,6 +140,7 @@ export function loadSidebarProj() {
         }
         projDiv.appendChild(projTitleSidebarDiv);
         projDiv.appendChild(deleteProj);
+        projDiv.appendChild(summarySpan);
 
         // add event listener for each Proj in the sidebar
         projTitleSidebarDiv.addEventListener('click', (e) => {

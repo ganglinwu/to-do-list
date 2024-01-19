@@ -17,7 +17,12 @@ import loadTodo from './loadtodo.js';
 export default function loadHome() {
     // create main container div
     const mainContainerDiv = createEle('div', 'id', 'mainContainerDiv');
-    mainContainerDiv.classList.add('grid', 'grid-rows-1', 'gap-1');
+    mainContainerDiv.classList.add(
+        'grid',
+        'grid-rows-1',
+        'gap-1',
+        'font-antic'
+    );
 
     // create header
     const header = createEle('div', 'id', 'header');
@@ -156,13 +161,27 @@ export default function loadHome() {
 
     // add project container
     const addProjContainer = createEle('div', 'id', 'addProjContainer');
-    addProjContainer.classList.add('flex', 'justify-center');
+    addProjContainer.classList.add(
+        'flex',
+        'py-2',
+        'justify-center',
+        'group',
+        'hover:bg-inverted',
+        'hover:invert',
+        'transition-all',
+        'duration-100',
+        'ease-in-out'
+    );
     sidebar.appendChild(addProjContainer);
 
     // add project in sidebar
     const addProjIconElement = createEle('img', 'id', 'addProjIcon');
     addProjIconElement.src = addProjIcon;
-    addProjIconElement.classList.add('h-auto', 'aspect-square');
+    addProjIconElement.classList.add(
+        'h-auto',
+        'aspect-square',
+        'group-hover:animate-bounce'
+    );
     addProjContainer.appendChild(addProjIconElement);
 
     // add project text

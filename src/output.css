@@ -579,8 +579,17 @@ video {
 }
 
 .projDiv {
+  position: relative;
   margin-left: 0.5rem;
-  border-width: 1px;
+  display: flex;
+  cursor: pointer;
+}
+
+.projDiv:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(72 145 241 / var(--tw-bg-opacity));
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .projTitleSidebarDiv {
@@ -588,41 +597,52 @@ video {
   margin-bottom: 0.5rem;
   display: flex;
   cursor: pointer;
-  border-width: 1px;
   transition-property: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.projTitleSidebarDiv:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(72 145 241 / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
 }
 
 .deleteProj {
   margin-left: auto;
-  aspect-ratio: 9/7;
+  aspect-ratio: 9/6;
   height: auto;
   cursor: pointer;
   align-self: center;
-  border-width: 1px;
   padding-left: 0.5rem;
+  padding-right: 0.5rem;
   transition-property: all;
   transition-duration: 200ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
 .deleteProj:hover {
-  --tw-bg-opacity: 1;
-  background-color: rgb(220 38 38 / var(--tw-bg-opacity));
-  --tw-text-opacity: 1;
-  color: rgb(255 255 255 / var(--tw-text-opacity));
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
 }
 
 .absolute {
   position: absolute;
+}
+
+.-right-40 {
+  right: -10rem;
 }
 
 .col-span-2 {
@@ -670,8 +690,26 @@ video {
   width: 5rem;
 }
 
+.w-40 {
+  width: 10rem;
+}
+
 .w-full {
   width: 100%;
+}
+
+.origin-left {
+  transform-origin: left;
+}
+
+.scale-0 {
+  --tw-scale-x: 0;
+  --tw-scale-y: 0;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+.cursor-not-allowed {
+  cursor: not-allowed;
 }
 
 .grid-rows-1 {
@@ -702,16 +740,38 @@ video {
   border-width: 1px;
 }
 
+.bg-primary {
+  --tw-bg-opacity: 1;
+  background-color: rgb(72 145 241 / var(--tw-bg-opacity));
+}
+
 .p-2 {
   padding: 0.5rem;
+}
+
+.py-2 {
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .pl-2 {
   padding-left: 0.5rem;
 }
 
+.text-left {
+  text-align: left;
+}
+
+.font-antic {
+  font-family: Antic, monospace;
+}
+
 .lowercase {
   text-transform: lowercase;
+}
+
+.opacity-50 {
+  opacity: 0.5;
 }
 
 .blur {
@@ -724,7 +784,66 @@ video {
           backdrop-filter: var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
 }
 
+.transition-all {
+  transition-property: all;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 150ms;
+}
+
+.duration-100 {
+  transition-duration: 100ms;
+}
+
+.ease-in-out {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 /* for components with repeated styling we can template it here */
+
+/* custom font */
+
+@font-face {
+  font-family: 'Antic';
+
+  src: url('./font/Antic/Antic-Regular.ttf');
+}
+
+.hover\:bg-inverted:hover {
+  --tw-bg-opacity: 1;
+  background-color: rgb(183 110 14 / var(--tw-bg-opacity));
+}
+
+.hover\:invert:hover {
+  --tw-invert: invert(100%);
+  filter: var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow);
+}
+
+.group\/item:hover .group-hover\/item\:scale-100 {
+  --tw-scale-x: 1;
+  --tw-scale-y: 1;
+  transform: translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y));
+}
+
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+
+  50% {
+    transform: translateY(0);
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+
+.group:hover .group-hover\:animate-bounce {
+  animation: bounce 1s infinite;
+}
+
+.group\/delete:hover .group-hover\/delete\:bg-red-500 {
+  --tw-bg-opacity: 1;
+  background-color: rgb(239 68 68 / var(--tw-bg-opacity));
+}
 
 @media (min-width: 768px) {
   .md\:w-28 {
